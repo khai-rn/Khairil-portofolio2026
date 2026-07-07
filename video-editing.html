@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Editing Project</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { fontFamily: { sans: ['Outfit', 'sans-serif'] } } }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #050508;
+    }
+
+    .liquid-glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .page-transition {
+      opacity: 0;
+      animation: pageEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes pageEnter {
+      from {
+        opacity: 0;
+        transform: scale(0.98) translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .video-item {
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      background: #000;
+      position: relative;
+      aspect-ratio: 16/9;
+    }
+
+    .video-item iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    body.fade-out {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+  </style>
+</head>
+
+<body class="text-slate-100 font-sans min-h-screen flex flex-col relative overflow-x-hidden">
+  <!-- Mesh background orbs -->
+  <div class="fixed inset-0 pointer-events-none z-0">
+    <div class="absolute top-[-20%] left-[10%] w-[60vw] h-[60vw] rounded-full bg-red-600/10 blur-[130px]"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-orange-600/10 blur-[120px]"></div>
+  </div>
+
+  <div class="relative z-10 page-transition flex-grow max-w-6xl w-full mx-auto px-6 py-12 flex flex-col">
+    <a href="index.html#projects"
+      class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-slate-400 hover:text-white hover:bg-white/10 transition-all self-start mb-8 backdrop-blur-md">
+      ← Back to Projects
+    </a>
+
+    <div class="liquid-glass-card rounded-3xl p-8 md:p-12 border border-white/10 relative overflow-hidden">
+      <h1 class="text-3xl md:text-5xl font-extrabold text-white mt-2 mb-6 tracking-tight">Video Editing</h1>
+      <p class="text-slate-300 font-light leading-relaxed mb-10 max-w-2xl">
+        Cinematic short-form content tailored for social media. Featuring dynamic color grading, engaging cuts, and smooth motion graphics built to retain attention.
+      </p>
+
+      <div class="video-grid">
+        <div class="video-item">
+          <iframe src="https://www.youtube.com/embed/FNnK7IPf24A" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Smooth transition logic
+    document.querySelectorAll('a[href^="index.html"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = this.getAttribute('href');
+        document.body.classList.add('fade-out');
+        setTimeout(() => {
+          window.location.href = target;
+        }, 300);
+      });
+    });
+  </script>
+</body>
+</html>

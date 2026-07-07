@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cara Membuat Logo yang Profesional - Blog</title>
+  <meta name="description" content="Memahami fundamental desain logo, sistem grid, dan mengapa kesederhanaan adalah kunci identitas abadi.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { fontFamily: { sans: ['Outfit', 'sans-serif'] } } }
+    }
+  </script>
+  <style>
+    body { background-color: #050508; }
+    .liquid-glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .page-transition {
+      opacity: 0;
+      animation: pageEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes pageEnter {
+      from { opacity: 0; transform: scale(0.98) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .prose p { margin-bottom: 1.5rem; line-height: 1.8; color: #cbd5e1; font-weight: 300; }
+    .prose h2 { font-size: 1.5rem; font-weight: 700; color: #fff; margin-top: 2.5rem; margin-bottom: 1rem; }
+    .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; color: #cbd5e1; }
+    .prose li { margin-bottom: 0.5rem; line-height: 1.6; }
+    .hero-img { width: 100%; height: 350px; object-fit: cover; border-radius: 1rem; margin-bottom: 2.5rem; }
+  </style>
+</head>
+
+<body class="text-slate-100 font-sans min-h-screen flex flex-col relative overflow-x-hidden">
+  <!-- Mesh background orbs -->
+  <div class="fixed inset-0 pointer-events-none z-0">
+    <div class="absolute top-[-20%] left-[10%] w-[60vw] h-[60vw] rounded-full bg-blue-600/20 blur-[130px]"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-purple-600/10 blur-[120px]"></div>
+  </div>
+
+  <div class="relative z-10 page-transition flex-grow max-w-4xl w-full mx-auto px-6 py-12 flex flex-col justify-center">
+    <a href="index.html#blog"
+      class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-slate-400 hover:text-white hover:bg-white/10 transition-all self-start mb-8 backdrop-blur-md">
+      ← Kembali ke Beranda
+    </a>
+
+    <div class="liquid-glass-card rounded-3xl p-8 md:p-12 border border-white/10 relative overflow-hidden">
+      <span class="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2 block">Desain Grafis</span>
+      <h1 class="text-3xl md:text-5xl font-extrabold text-white mt-2 mb-6 tracking-tight leading-tight">Cara Membuat Logo yang Profesional dan Berdampak</h1>
+      
+      <img src="assets/Project%20Image/logofolio.png" alt="Desain Logo" class="hero-img">
+
+      <div class="prose">
+        <p>Logo adalah wajah dari sebuah brand. Ia adalah hal pertama yang dilihat pelanggan dan seringkali menjadi hal terakhir yang mereka ingat. Sebuah logo yang profesional tidak hanya sekadar terlihat indah, melainkan harus fungsional, mudah diingat, dan merepresentasikan nilai-nilai dari bisnis tersebut.</p>
+
+        <h2>1. Mulai dengan Riset dan Strategi</h2>
+        <p>Sebelum membuka Adobe Illustrator atau software desain lainnya, luangkan waktu untuk riset. Pahami siapa target audiensnya, apa misi perusahaan, dan siapa kompetitornya. Desain logo yang baik selalu berakar dari pemahaman yang mendalam tentang identitas brand.</p>
+
+        <h2>2. Kesederhanaan (Simplicity) adalah Kunci</h2>
+        <p>Perhatikan logo-logo ikonik seperti Apple, Nike, atau McDonald's. Mereka semua memiliki kesamaan: kesederhanaan. Logo yang terlalu rumit akan sulit diingat dan kehilangan detailnya ketika diperkecil. Prinsip utamanya adalah: kurangi elemen yang tidak perlu sampai esensinya saja yang tersisa.</p>
+
+        <h2>3. Gunakan Sistem Grid</h2>
+        <p>Desainer profesional sering menggunakan sistem grid untuk memastikan proporsi dan keseimbangan visual yang sempurna. Grid membantu menciptakan harmoni matematis dalam desain, membuat logo terlihat kokoh dan stabil di mata audiens.</p>
+
+        <h2>4. Fleksibilitas Skala dan Warna</h2>
+        <p>Logo yang sukses harus bisa bekerja dengan baik di berbagai ukuran—dari billboard raksasa hingga favicon kecil di tab browser. Selain itu, pastikan logo tetap terlihat kuat meskipun dicetak dalam warna hitam putih (monokrom).</p>
+
+        <div class="mt-12 pt-8 border-t border-white/10">
+          <p class="text-sm text-slate-400">Ditulis oleh Khairil — Terakhir diperbarui pada Juli 2026</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

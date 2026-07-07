@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M. Khairil Rahman — Portfolio 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400;1,9..40,700&family=DM+Serif+Display:ital@0;1&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="dark">
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <a href="#home" class="nav-logo">
+      <img src="assets/icon%20apps/kaivisual%20New%20Logo-07.png" alt="Logo" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#home" class="nav-link active" data-i18n="nav.home">Home</a></li>
+      <li><a href="#about" class="nav-link" data-i18n="nav.about">About</a></li>
+      <li><a href="#skills" class="nav-link" data-i18n="nav.skills">Skills</a></li>
+      <li><a href="all-about-me.html" class="nav-link" data-i18n="nav.education">Education</a></li>
+      <li><a href="#projects" class="nav-link" data-i18n="nav.projects">Projects</a></li>
+      <li><a href="#blog" class="nav-link" data-i18n="nav.blog">Blog</a></li>
+      <li><a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+    <div style="display: flex; gap: 8px; align-items: center; margin-left: auto;">
+      <button class="lang-toggle" id="langToggle" aria-label="Toggle language">ID</button>
+      <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">
+        <span class="toggle-icon">◐</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Menu" style="margin-left: 8px;">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="home">
+    <div class="hero-center">
+      <div class="hero-image-wrapper reveal" id="heroImageWrapper">
+        <img src="assets/hero-image.png" alt="Creative Portfolio 2026" class="hero-image light-img" />
+        <img src="assets/Portodark.png" alt="Creative Portfolio 2026" class="hero-image dark-img" />
+      </div>
+    </div>
+
+    <div class="hero-cta reveal">
+      <a href="#projects" class="btn btn-primary" data-i18n="proj.button">View My Work</a>
+      <a href="assets/CV%20M.Khairil%20Rahman.pdf" download="CV_Khairil_Rahman.pdf" class="btn btn-ghost" data-i18n="nav.downloadcv">Download CV</a>
+      <a href="#contact" class="btn btn-ghost" data-i18n="nav.contact">Contact Me</a>
+    </div>
+
+    <div class="hero-sub reveal">
+      <span>M. Khairil Rahman</span>
+      <span class="sep">·</span>
+      <span>Designer · Developer · Creator</span>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="about" id="about">
+    <div class="section-label reveal" data-i18n="about.title">01 — About</div>
+
+    <div class="macos-window reveal">
+      <div class="window-bar">
+        <div class="traffic-lights">
+          <span class="tl red"></span>
+          <span class="tl yellow"></span>
+          <span class="tl green"></span>
+        </div>
+        <span class="window-title" data-i18n="about.windowTitle">My_Profile.png</span>
+      </div>
+      <div class="window-body about-body">
+        <div class="about-left">
+          <div class="photo-frame">
+            <div class="photo-placeholder" id="photoCard">
+              <div class="photo-handle top-left"></div>
+              <div class="photo-handle top-right"></div>
+              <div class="photo-handle bottom-left"></div>
+              <div class="photo-handle bottom-right"></div>
+              <img src="assets/profile.jpg" alt="M. Khairil Rahman" class="profile-photo" />
+              <div class="photo-glow-overlay"></div>
+            </div>
+          </div>
+        </div>
+        <div class="about-right">
+          <div class="hello-card">
+            <div class="memoji">👨🏻‍💻</div>
+            <span class="hello-text">HELLO!</span>
+          </div>
+          <div class="bio-card">
+            <div class="bio-row">
+              <span class="bio-label" data-i18n="about.label.name">Name</span>
+              <span class="bio-value highlight">M. Khairil Rahman</span>
+            </div>
+            <div class="bio-row">
+              <span class="bio-label" data-i18n="about.label.born">Born</span>
+              <span class="bio-value">20 October 2005</span>
+            </div>
+            <div class="bio-row">
+              <span class="bio-label" data-i18n="about.label.city">City</span>
+              <span class="bio-value">Mataram</span>
+            </div>
+            <div class="bio-row">
+              <span class="bio-label" data-i18n="about.label.Current Residence">Current Residence</span>
+              <span class="bio-value">Kesiman Kertalangu, East Denpasar, Denpasar City, Bali 80237</span>
+            </div>
+            <div class="bio-row">
+              <span class="bio-label" data-i18n="about.label.religion">Religion</span>
+              <span class="bio-value">Islam</span>
+            </div>
+            <div class="bio-row">
+              <span class="bio-label" data-i18n="about.label.language">Language</span>
+              <span class="bio-value">Indonesia, English (intermediate)</span>
+            </div>
+          </div>
+          <p class="about-text" data-i18n="about.desc">
+            Graphic Designer yang berfokus pada pembuatan visual kreatif untuk media sosial, promosi digital, dan
+            kebutuhan branding. Memiliki pengalaman mengelola berbagai proyek desain, editing visual, dokumentasi,
+            hingga administrasi operasional yang mendukung aktivitas bisnis. Terbiasa bekerja secara kolaboratif,
+            memahami tren desain digital, serta memanfaatkan AI tools untuk menghasilkan proses kerja yang lebih cepat,
+            efisien, dan berkualitas tanpa mengurangi nilai kreativitas.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- RINGBOUND NOTEBOOK UI (SOFT & HARD SKILLS) -->
+  <div class="ring-notebook-ui reveal" id="skills" style="--delay:200ms">
+    <!-- Binder rings at top edge -->
+    <div class="binder-rings">
+      <div class="ring-wrapper">
+        <div class="ring-hole"></div>
+        <div class="binder-ring"></div>
+      </div>
+      <div class="ring-wrapper">
+        <div class="ring-hole"></div>
+        <div class="binder-ring"></div>
+      </div>
+      <div class="ring-wrapper">
+        <div class="ring-hole"></div>
+        <div class="binder-ring"></div>
+      </div>
+    </div>
+
+    <!-- Notebook Page Body -->
+    <div class="notebook-body">
+      <div class="notebook-columns">
+        <!-- Left Column: Soft Skills -->
+        <div class="notebook-col">
+          <div class="col-header" data-i18n="skills.soft">SOFT SKILLS</div>
+          <div class="col-divider"></div>
+          <ul class="skills-list">
+            <li>CREATIVE</li>
+            <li>ADAPTABLE</li>
+            <li>TEAMWORK</li>
+            <li>DETAIL WORK</li>
+            <li>EMPATHY</li>
+            <li>CRITICAL THINKING</li>
+          </ul>
+        </div>
+        <!-- Right Column: Hard Skills -->
+        <div class="notebook-col">
+          <div class="col-header" data-i18n="skills.hard">HARD SKILLS</div>
+          <div class="col-divider"></div>
+          <ul class="skills-list">
+            <li>GRAPHIC DESIGN</li>
+            <li>PHOTOGRAPHY</li>
+            <li>AI PROMPTING</li>
+            <li>WEB DEVLOVMENT</li>
+            <li>VIDEO EDITING</li>
+            <li>CREATIVE CONTENT</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Software Tools Dock -->
+      <div class="notebook-dock-container">
+        <div class="software-dock">
+          <!-- Photoshop -->
+          <div class="dock-app">
+            <div class="app-icon"><img src="assets/icon apps/photoshop.png" alt="Photoshop"
+                style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+            <span class="app-dot"></span>
+          </div>
+          <!-- Illustrator -->
+          <div class="dock-app">
+            <div class="app-icon"><img src="assets/icon apps/illustrator.png" alt="Illustrator"
+                style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+            <span class="app-dot"></span>
+          </div>
+          <!-- ChatGPT -->
+          <div class="dock-app">
+            <div class="app-icon"><img src="assets/icon apps/chatgpt.png" alt="ChatGPT"
+                style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+            <span class="app-dot"></span>
+          </div>
+          <!-- Claude AI -->
+          <div class="dock-app">
+            <div class="app-icon"><img src="assets/icon apps/claude.png" alt="Claude AI"
+                style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+            <span class="app-dot"></span>
+          </div>
+          <!-- CapCut -->
+          <div class="dock-app">
+            <div class="app-icon"><img src="assets/icon apps/capcut.png" alt="CapCut"
+                style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+            <span class="app-dot"></span>
+          </div>
+          <!-- Divider -->
+          <div class="dock-divider"></div>
+          <!-- Canva -->
+          <div class="dock-app">
+            <div class="app-icon"><img src="assets/icon apps/canva.png" alt="Canva"
+                style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+            <span class="app-dot"></span>
+          </div>
+          <!-- Notion -->
+          <div class="dock-app">
+            <div class="app-icon"><img src="assets/icon apps/notion.png" alt="Notion"
+                style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+            <span class="app-dot"></span>
+          </div>
+        </div>
+        <div class="dock-footer-label">Tools I Used | Learned</div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+
+  <div style="text-align: center; margin-top: 60px; margin-bottom: 60px;" class="reveal">
+    <a href="all-about-me.html" class="btn btn-primary" style="padding: 16px 32px; font-size: 1.1rem;">All About me</a>
+  </div>
+  <!-- PROJECTS SECTION -->
+  <section class="projects gallery-section" id="projects">
+    <div class="gallery-container">
+      <div class="gallery-header reveal">
+        <div class="gallery-title-wrapper">
+          <div class="section-label" data-i18n="proj.title">05 — Projects</div>
+          <h2 class="gallery-title">Selected Work</h2>
+        </div>
+        <div class="gallery-controls hidden-mobile">
+          <button class="btn-icon" id="prevBtn" aria-label="Previous">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" style="width:20px;height:20px;">
+              <path d="m15 18-6-6 6-6" />
+            </svg>
+          </button>
+          <button class="btn-icon" id="nextBtn" aria-label="Next">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" style="width:20px;height:20px;">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="carousel-wrapper reveal" style="--delay:100ms">
+        <div class="carousel-container" id="galleryCarousel">
+
+
+
+
+          <div class="carousel-item">
+            <a href="https://www.behance.net/gallery/252286975/Design-Portofolio" target="_blank" class="carousel-link">
+              <div class="carousel-card">
+                <img src="assets/Project%20Image/Cover.png" alt="DesignFolio" class="carousel-img">
+                <div class="carousel-overlay"></div>
+                <div class="carousel-content">
+                  <div
+                    style="font-size: 12px; font-weight: 700; color: var(--blue); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;">
+                    Portfolio</div>
+                  <h3 class="carousel-title">DesignFolio</h3>
+                  <p class="carousel-desc">Kumpulan hasil karya desain kreatif dan proyek pilihan.
+                  </p>
+                  <div class="carousel-readmore">View Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;">
+                      <path d="m9 18 6-6-6-6" />
+                    </svg></div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="carousel-item">
+            <a href="https://www.behance.net/gallery/252058501/Logofolio" target="_blank" class="carousel-link">
+              <div class="carousel-card">
+                <img src="assets/Project%20Image/logofolio.png" alt="LogoFolio" class="carousel-img">
+                <div class="carousel-overlay"></div>
+                <div class="carousel-content">
+                  <div
+                    style="font-size: 12px; font-weight: 700; color: var(--blue); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;">
+                    Branding</div>
+                  <h3 class="carousel-title">LogoFolio</h3>
+                  <p class="carousel-desc">A collection of logo designs and brand identities.
+                  </p>
+                  <div class="carousel-readmore">View Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;">
+                      <path d="m9 18 6-6-6-6" />
+                    </svg></div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="carousel-item">
+            <a href="https://www.behance.net/gallery/252060171/Social-Media" target="_blank" class="carousel-link">
+              <div class="carousel-card">
+                <img src="assets/Project%20Image/sosmed.png" alt="Social Media" class="carousel-img">
+                <div class="carousel-overlay"></div>
+                <div class="carousel-content">
+                  <div
+                    style="font-size: 12px; font-weight: 700; color: var(--blue); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;">
+                    Content</div>
+                  <h3 class="carousel-title">Social Media</h3>
+                  <p class="carousel-desc">End-to-end campaign — visual, copy, and posting strategy for a brand launch.
+                  </p>
+                  <div class="carousel-readmore">View Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;">
+                      <path d="m9 18 6-6-6-6" />
+                    </svg></div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="carousel-item">
+            <a href="video-editing.html" class="carousel-link">
+              <div class="carousel-card">
+                <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=1080"
+                  alt="Video Editing Project" class="carousel-img">
+                <div class="carousel-overlay"></div>
+                <div class="carousel-content">
+                  <div
+                    style="font-size: 12px; font-weight: 700; color: var(--blue); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;">
+                    Video</div>
+                  <h3 class="carousel-title">Video Editing Project</h3>
+                  <p class="carousel-desc">Cinematic short-form content. Color grading, cuts, and motion — built to
+                    retain attention.</p>
+                  <div class="carousel-readmore">View Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;">
+                      <path d="m9 18 6-6-6-6" />
+                    </svg></div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+
+
+
+
+        </div>
+
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- BLOG SECTION -->
+  <section class="projects gallery-section" id="blog" style="padding-top: 60px;">
+    <div class="section-label reveal" data-i18n="blog.title">06 — Blog</div>
+    <p style="text-align: center; color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem; max-width: 600px; margin-inline: auto;"
+      class="reveal" data-i18n="blog.desc">
+      Tulisan terbaru seputar desain, branding, dan teknologi.
+    </p>
+
+    <div class="blog-grid reveal">
+      <!-- Blog Card 1 -->
+      <a href="blog-logo.html" class="blog-card">
+        <img src="assets/Project%20Image/logofolio.png" alt="Cara Membuat Logo" class="blog-img">
+        <div class="blog-content">
+          <h3 class="blog-title">Cara Membuat Logo yang Profesional dan Berdampak</h3>
+          <p class="blog-desc">Memahami fundamental desain logo, sistem grid, dan mengapa kesederhanaan adalah kunci
+            identitas abadi.</p>
+          <span class="blog-link">Baca Artikel</span>
+        </div>
+      </a>
+
+      <!-- Blog Card 2 -->
+      <a href="blog-branding.html" class="blog-card">
+        <img src="https://images.unsplash.com/photo-1542744094-3a31f272c490?q=80&w=1000" alt="Branding"
+          class="blog-img">
+        <div class="blog-content">
+          <h3 class="blog-title">Membangun Identitas Visual (Branding) yang Kuat</h3>
+          <p class="blog-desc">Pentingnya konsistensi, psikologi warna, dan panduan merek untuk menciptakan persepsi
+            positif audiens.</p>
+          <span class="blog-link">Baca Artikel</span>
+        </div>
+      </a>
+
+
+
+      <!-- Blog Card 4 -->
+      <a href="blog-ai.html" class="blog-card">
+        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1000" alt="AI untuk Desainer"
+          class="blog-img">
+        <div class="blog-content">
+          <h3 class="blog-title">AI untuk Desainer: Ancaman atau Alat Bantu?</h3>
+          <p class="blog-desc">Mengeksplorasi cara memanfaatkan kecerdasan buatan sebagai asisten kreatif tanpa
+            menghilangkan sentuhan manusiawi.</p>
+          <span class="blog-link">Baca Artikel</span>
+        </div>
+      </a>
+
+      <!-- Blog Card 6 -->
+      <a href="blog-10-ai-tools.html" class="blog-card">
+        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000" alt="AI Tools"
+          class="blog-img">
+        <div class="blog-content">
+          <h3 class="blog-title">10 AI Tools yang Wajib Saya Gunakan Sebagai Graphic Designer di 2026</h3>
+          <p class="blog-desc">Bagaimana AI membantu menghemat waktu untuk pekerjaan berulang, mulai dari ChatGPT hingga
+            Midjourney.</p>
+          <span class="blog-link">Baca Artikel</span>
+        </div>
+      </a>
+      <!-- Blog Card 7 -->
+      <a href="blog-ai-brainstorming.html" class="blog-card">
+        <img src="assets/Project%20Image/ai_brainstorming_hero.png" alt="AI Brainstorming" class="blog-img">
+        <div class="blog-content">
+          <h3 class="blog-title">AI untuk Brainstorming Ide Desain: Menghasilkan Ide Cepat Tanpa Kehilangan Kreativitas
+          </h3>
+          <p class="blog-desc">Bagaimana AI dapat menjadi partner diskusi dan memancing sudut pandang baru dalam
+            memecahkan masalah visual.</p>
+          <span class="blog-link">Baca Artikel</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact" id="contact">
+    <div class="section-label reveal" data-i18n="contact.title">07 — Contact</div>
+
+    <div class="contact-layout">
+      <div class="contact-left reveal">
+        <h2 class="contact-heading" data-i18n="contact.heading">Let's<br /><em>Work</em><br />Together.</h2>
+        <p class="contact-sub" data-i18n="contact.sub">Available for freelance projects, collaborations, and full-time.
+        </p>
+      </div>
+
+      <div class="contact-right reveal">
+        <div class="macos-window contact-window">
+          <div class="window-bar">
+            <div class="traffic-lights">
+              <span class="tl red"></span>
+              <span class="tl yellow"></span>
+              <span class="tl green"></span>
+            </div>
+            <span class="window-title">Contact.png</span>
+          </div>
+          <div class="window-body contact-body">
+            <div class="contact-links">
+              <a href="mailto:Khairilzy@gmail.com" class="contact-link">
+                <span class="cl-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="16" x="2" y="4" rx="2" />
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                  </svg></span>
+                <span class="cl-label">Email</span>
+                <span class="cl-value">Khairilzy@gmail.com</span>
+              </a>
+              <a href="https://instagram.com/khairilrn" target="_blank" class="contact-link">
+                <span class="cl-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                  </svg></span>
+                <span class="cl-label">Instagram</span>
+                <span class="cl-value">@khairilrn</span>
+              </a>
+              <a href="https://wa.me/6285177100020" target="_blank" class="contact-link">
+                <span class="cl-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
+                  </svg></span>
+                <span class="cl-label">WhatsApp</span>
+                <span class="cl-value">0851-7710-0020</span>
+              </a>
+              <a href="https://github.com/khairil" target="_blank" class="contact-link">
+                <span class="cl-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                    <path d="M9 18c-4.51 2-5-2-7-2" />
+                  </svg></span>
+                <span class="cl-label">GitHub</span>
+                <span class="cl-value">github.com/khairil</span>
+              </a>
+            </div>
+
+            <div class="contact-form">
+              <div class="form-row">
+                <input type="text" id="formName" placeholder="Your name" class="form-input" data-i18n="contact.name" />
+                <input type="email" id="formEmail" placeholder="Your email" class="form-input"
+                  data-i18n="contact.email" />
+              </div>
+              <textarea id="formMsg" placeholder="Your message" class="form-input form-textarea"
+                data-i18n="contact.msg"></textarea>
+              <div style="display: flex; gap: 12px; align-self: flex-end; flex-wrap: wrap; justify-content: flex-end;">
+                <a href="https://wa.me/6285177100020" target="_blank" class="btn btn-ghost"
+                  style="display: flex; align-items: center; justify-content: center;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    style="margin-right: 8px;">
+                    <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
+                  </svg> Hubungi via WhatsApp
+                </a>
+                <button class="btn btn-primary btn-send" id="sendBtn" style="align-self: auto;"
+                  data-i18n="contact.send">Send Message</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span>© 2026 M. Khairil Rahman. Built with HTML, CSS &amp; JavaScript.</span>
+    <span class="footer-role">Designer · Developer · Creator</span>
+  </footer>
+
+  <script src="lang.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

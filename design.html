@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graphic Design Detail — Premium Liquid Glass</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { fontFamily: { sans: ['Outfit', 'sans-serif'] } } }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #050508;
+    }
+
+    .liquid-glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .page-transition {
+      opacity: 0;
+      animation: pageEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes pageEnter {
+      from {
+        opacity: 0;
+        transform: scale(0.98) translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    body.fade-out {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+  </style>
+</head>
+
+<body class="text-slate-100 font-sans min-h-screen flex flex-col relative overflow-x-hidden">
+  <!-- Mesh background orbs -->
+  <div class="fixed inset-0 pointer-events-none z-0">
+    <div class="absolute top-[-20%] left-[10%] w-[60vw] h-[60vw] rounded-full bg-purple-600/20 blur-[130px]"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-pink-600/10 blur-[120px]"></div>
+  </div>
+
+  <div class="relative z-10 page-transition flex-grow max-w-4xl w-full mx-auto px-6 py-12 flex flex-col justify-center">
+    <a href="what-i-do.html"
+      class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-slate-400 hover:text-white hover:bg-white/10 transition-all self-start mb-8 backdrop-blur-md">
+      ← Kembali ke What I Do
+    </a>
+
+    <div class="liquid-glass-card rounded-3xl p-8 md:p-12 border border-white/10 relative overflow-hidden">
+      <div class="absolute top-0 right-0 p-8 opacity-10 text-8xl font-black select-none pointer-events-none">01</div>
+
+      <span class="text-xs font-bold uppercase tracking-widest text-purple-400">Keahlian Mendalam</span>
+      <h1 class="text-3xl md:text-5xl font-extrabold text-white mt-2 mb-6 tracking-tight">Graphic Design &amp; Layout
+        Presisi</h1>
+
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-300 font-light leading-relaxed text-sm md:text-base border-t border-white/5 pt-6">
+        <div>
+          <h3 class="text-white font-semibold mb-2 text-base">Hierarki Visual Mutlak</h3>
+          <p class="mb-4">
+            Desain bukan sekadar pemolesan estetika, melainkan arsitektur informasi. Setiap elemen diletakkan dengan
+            intensi matematis menggunakan grid dinamis untuk memandu mata audiens secara instan ke titik fokus
+            terpenting.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-2 text-base">Sistem Tipografi &amp; Skala</h3>
+          <p>
+            Memanfaatkan kontras ukuran, ketebalan font, dan ruang kosong (white space) sebagai elemen aktif. Komposisi
+            visual dirancang agar tetap tajam dan berdampak tinggi baik pada media digital mikro maupun format layar
+            lebar.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-white/5 flex flex-wrap gap-2">
+        <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/5 text-xs text-slate-400 font-mono">Adobe
+          Illustrator</span>
+        <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/5 text-xs text-slate-400 font-mono">Adobe
+          Photoshop</span>
+        <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/5 text-xs text-slate-400 font-mono">Figma
+          Layouts</span>
+        <span
+          class="px-3 py-1 rounded-lg bg-purple-500/10 border border-purple-500/20 text-xs text-purple-300 font-mono">Editorial
+          Design</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelector('a').addEventListener('click', function (e) {
+      e.preventDefault();
+      const href = this.getAttribute('href');
+      document.body.classList.add('fade-out');
+      setTimeout(() => window.location.href = href, 300);
+    });
+  </script>
+</body>
+
+</html>
+<div class="text-xs text-slate-500 font-light">Klik untuk membuka galeri popup hasil desain</div>
+</div>
+<div class="ml-auto pl-3 text-slate-400 group-hover:text-purple-600 transition-colors font-mono text-base">
+  ↗
+</div>
+</button>
+</div>
+</div>
+</div>
+
+<!-- Popup Modal Overlay (UI Gallery) -->
+<div id="gallery-modal"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-md bg-slate-900/30">
+  <div
+    class="liquid-glass-card w-full max-w-5xl max-h-[90vh] rounded-3xl border border-slate-200 flex flex-col overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300 id-modal-content bg-white/95">
+    <!-- Modal Header (Mac Window Bar) -->
+    <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80 flex-shrink-0">
+      <div class="flex items-center gap-2">
+        <span class="w-3 h-3 rounded-full bg-rose-500/80 border border-rose-500 border-black/10 inline-block"></span>
+        <span class="w-3 h-3 rounded-full bg-amber-500/80 border border-amber-500 border-black/10 inline-block"></span>
+        <span
+          class="w-3 h-3 rounded-full bg-emerald-500/80 border border-emerald-500 border-black/10 inline-block"></span>
+        <span class="ml-2 text-xs font-mono text-slate-500 select-none">arsip_karya_desain_grafis.gallery</span>
+      </div>
+      <button id="close-gallery-btn" type="button"
+        class="text-slate-600 hover:text-slate-900 text-xs font-bold px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 border border-slate-200 shadow-sm transition-all">
+        ✕ Tutup
+      </button>
+    </div>
+
+    <!-- Modal Body (Gallery Grid) -->
+    <div class="p-6 overflow-y-auto flex-grow custom-scrollbar">
+      <div class="mb-6 text-left">
+        <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Galeri Karya Desain &amp; Antarmuka</h2>
+        <p class="text-xs text-slate-500 mt-1 leading-relaxed max-w-2xl">
+          Berikut adalah arsip visual antarmuka dan materi desain grafis yang pernah dikembangkan. Anda dapat menaruh
+          atau mengganti placeholder gambar di bawah ini dengan karya asli Anda.
+        </p>
+      </div>
+
+      <!-- Grid of Gallery Items -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <!-- Item 1 -->
+        <div
+          class="group relative aspect-video rounded-xl overflow-hidden bg-slate-50 border border-slate-200 hover:border-purple-300 transition-all flex flex-col justify-end p-3 shadow-inner">
+          <!-- Tempat taruh tag img asli: <img src="path/to/img.jpg" class="absolute inset-0 w-full h-full object-cover" /> -->
+          <div
+            class="absolute inset-0 flex items-center justify-center text-purple-600/30 text-xs font-mono group-hover:scale-105 transition-transform select-none">
+            [Slot Karya UI 1]
+          </div>
+          <div
+            class="relative z-10 mt-auto bg-white/90 backdrop-blur-md py-1.5 px-2.5 rounded-lg border border-slate-200 text-[11px] font-medium text-slate-800 shadow-sm flex justify-between items-center">
+            <span>E-Commerce UI Redesign</span>
+            <span class="text-[9px] text-purple-600 font-mono">Figma</span>
+          </div>
+        </div>
+        <!-- Item 2 -->
+        <div
+          class="group relative aspect-video rounded-xl overflow-hidden bg-slate-50 border border-slate-200 hover:border-purple-300 transition-all flex flex-col justify-end p-3 shadow-inner">
+          <div
+            class="absolute inset-0 flex items-center justify-center text-purple-600/30 text-xs font-mono group-hover:scale-105 transition-transform select-none">
+            [Slot Karya UI 2]
+          </div>
+          <div
+            class="relative z-10 mt-auto bg-white/90 backdrop-blur-md py-1.5 px-2.5 rounded-lg border border-slate-200 text-[11px] font-medium text-slate-800 shadow-sm flex justify-between items-center">
+            <span>Mobile Dashboard App</span>
+            <span class="text-[9px] text-purple-600 font-mono">Figma</span>
+          </div>
+        </div>
+        <!-- Item 3 -->
+        <div
+          class="group relative aspect-video rounded-xl overflow-hidden bg-slate-50 border border-slate-200 hover:border-purple-300 transition-all flex flex-col justify-end p-3 shadow-inner">
+          <div
+            class="absolute inset-0 flex items-center justify-center text-purple-600/30 text-xs font-mono group-hover:scale-105 transition-transform select-none">
+            [Slot Karya Grafis 3]
+          </div>
+          <div
+            class="relative z-10 mt-auto bg-white/90 backdrop-blur-md py-1.5 px-2.5 rounded-lg border border-slate-200 text-[11px] font-medium text-slate-800 shadow-sm flex justify-between items-center">
+            <span>Brand Identity System</span>
+            <span class="text-[9px] text-pink-600 font-mono">Ai/Ps</span>
+          </div>
+        </div>
+        <!-- Item 4 -->
+        <div
+          class="group relative aspect-video rounded-xl overflow-hidden bg-slate-50 border border-slate-200 hover:border-purple-300 transition-all flex flex-col justify-end p-3 shadow-inner">
+          <div
+            class="absolute inset-0 flex items-center justify-center text-purple-600/30 text-xs font-mono group-hover:scale-105 transition-transform select-none">
+            [Slot Karya Grafis 4]
+          </div>
+          <div
+            class="relative z-10 mt-auto bg-white/90 backdrop-blur-md py-1.5 px-2.5 rounded-lg border border-slate-200 text-[11px] font-medium text-slate-800 shadow-sm flex justify-between items-center">
+            <span>Social Media Strategy Kit</span>
+            <span class="text-[9px] text-pink-600 font-mono">Ps</span>
+          </div>
+        </div>
+        <!-- Item 5 -->
+        <div
+          class="group relative aspect-video rounded-xl overflow-hidden bg-slate-50 border border-slate-200 hover:border-purple-300 transition-all flex flex-col justify-end p-3 shadow-inner">
+          <div
+            class="absolute inset-0 flex items-center justify-center text-purple-600/30 text-xs font-mono group-hover:scale-105 transition-transform select-none">
+            [Slot Karya UI 5]
+          </div>
+          <div
+            class="relative z-10 mt-auto bg-white/90 backdrop-blur-md py-1.5 px-2.5 rounded-lg border border-slate-200 text-[11px] font-medium text-slate-800 shadow-sm flex justify-between items-center">
+            <span>Futuristic Landing Page</span>
+            <span class="text-[9px] text-purple-600 font-mono">Figma</span>
+          </div>
+        </div>
+        <!-- Item 6 -->
+        <div
+          class="group relative aspect-video rounded-xl overflow-hidden bg-slate-50 border border-slate-200 hover:border-purple-300 transition-all flex flex-col justify-end p-3 shadow-inner">
+          <div
+            class="absolute inset-0 flex items-center justify-center text-purple-600/30 text-xs font-mono group-hover:scale-105 transition-transform select-none">
+            [Slot Karya UI 6]
+          </div>
+          <div
+            class="relative z-10 mt-auto bg-white/90 backdrop-blur-md py-1.5 px-2.5 rounded-lg border border-slate-200 text-[11px] font-medium text-slate-800 shadow-sm flex justify-between items-center">
+            <span>High-Fidelity Wireframes</span>
+            <span class="text-[9px] text-purple-600 font-mono">Figma</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Page transition for back link
+  const backLink = document.querySelector('a[href^="index.html"]');
+  if (backLink) {
+    backLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      const href = this.getAttribute('href');
+      document.body.classList.add('fade-out');
+      setTimeout(() => window.location.href = href, 300);
+    });
+  }
+
+  // Modal Popup Logic
+  const openBtn = document.getElementById('open-gallery-btn');
+  const closeBtn = document.getElementById('close-gallery-btn');
+  const modal = document.getElementById('gallery-modal');
+  const modalContent = modal.querySelector('.id-modal-content');
+
+  if (openBtn && modal && closeBtn) {
+    openBtn.addEventListener('click', () => {
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modalContent.classList.remove('scale-95');
+      modalContent.classList.add('scale-100');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modalContent.classList.remove('scale-100');
+      modalContent.classList.add('scale-95');
+    });
+
+    // Close when clicking outside content
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeBtn.click();
+      }
+    });
+  }
+</script>
+</body>
+
+</html>

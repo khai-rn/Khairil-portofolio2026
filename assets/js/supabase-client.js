@@ -106,7 +106,7 @@
         .from('entries')
         .select(`
           id, title, slug, excerpt, entry_type, visibility, status,
-          cover_image, mood, reading_time_minutes, happened_at, published_at,
+          cover_image, mood, reading_time_minutes, happened_at, published_at, view_count,
           category:categories(id, name, slug)
         `, { count: 'exact' })
         .eq('visibility', 'public')
@@ -150,6 +150,16 @@
 
       if (error) return null;
       return data;
+    },
+
+    async incrementViews(slug) {
+      const client = getClient();
+      if (!client || !slug) return;
+      try {
+        await client.rpc('increment_entry_views', { target_slug: slug });
+      } catch (e) {
+        // Fallback or silent fail if RPC not created yet
+      }
     },
 
     async getUnlistedEntry(slug, token) {

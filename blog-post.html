@@ -1,430 +1,629 @@
 <!DOCTYPE html>
-<html lang="id" class="dark">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title id="pageTitle">Jurnal — M. Khairil Rahman</title>
-  <meta name="description" id="metaDescription" content="A Journal of Becoming — Documenting life, one day at a time.">
+  <title id="pageTitle">Blog Post — M. Khairil Rahman</title>
+  <meta name="description" id="metaDescription" content="Read notes, thoughts, and reflections by M. Khairil Rahman." />
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
   <script>
     tailwind.config = {
       darkMode: 'class',
-      theme: { extend: { fontFamily: { sans: ['Outfit', 'sans-serif'] } } }
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Outfit', 'sans-serif'],
+          }
+        }
+      }
     }
   </script>
+
   <style>
-    body { background-color: #050508; }
-    .liquid-glass-card {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    body {
+      transition: background-color 0.25s ease, color 0.25s ease;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     }
-    .page-transition {
-      opacity: 0;
-      animation: pageEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+    /* Editorial Prose Styling */
+    .article-body p {
+      margin-bottom: 1.75rem;
+      line-height: 1.85;
+      font-size: 1.1rem;
     }
-    @keyframes pageEnter {
-      from { opacity: 0; transform: scale(0.98) translateY(10px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
+    .article-body h2 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-top: 2.75rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
     }
-    .prose p { margin-bottom: 1.5rem; line-height: 1.8; color: #cbd5e1; font-weight: 300; font-size: 1.05rem; }
-    .prose h1 { font-size: 2rem; font-weight: 800; color: #fff; margin-top: 2.5rem; margin-bottom: 1.25rem; line-height: 1.2; }
-    .prose h2 { font-size: 1.5rem; font-weight: 700; color: #fff; margin-top: 2.25rem; margin-bottom: 1rem; }
-    .prose h3 { font-size: 1.25rem; font-weight: 600; color: #e2e8f0; margin-top: 1.75rem; margin-bottom: 0.75rem; }
-    .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; color: #cbd5e1; }
-    .prose ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1.5rem; color: #cbd5e1; }
-    .prose li { margin-bottom: 0.5rem; line-height: 1.7; }
-    .prose blockquote {
-      border-left: 4px solid #38bdf8;
-      padding-left: 1.25rem;
-      margin: 2rem 0;
-      color: #e2e8f0;
-      font-style: italic;
-      background: rgba(56, 189, 248, 0.04);
-      padding: 1rem 1.25rem;
-      border-radius: 0 0.75rem 0.75rem 0;
+    .article-body h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-top: 2.25rem;
+      margin-bottom: 1rem;
+      line-height: 1.4;
     }
-    .prose hr { border: 0; border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 2.5rem 0; }
-    .prose img { border-radius: 1rem; margin: 2rem 0 0.5rem 0; width: 100%; object-fit: cover; }
-    .prose figcaption { text-align: center; font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.5rem; }
-    .hero-img { width: 100%; max-height: 480px; object-fit: cover; border-radius: 1rem; margin-bottom: 2.5rem; }
-    
-    /* Gallery Grid */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 16px;
+    .article-body blockquote {
+      border-left: 4px solid #635bff;
+      padding: 1.25rem 1.75rem;
       margin: 2.5rem 0;
+      font-style: italic;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      border-radius: 0 1rem 1rem 0;
     }
-    .gallery-item {
-      position: relative;
-      border-radius: 0.85rem;
-      overflow: hidden;
-      cursor: pointer;
-      aspect-ratio: 4/3;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(0,0,0,0.4);
+    .article-body ul {
+      list-style-type: disc;
+      padding-left: 1.75rem;
+      margin-bottom: 1.75rem;
     }
-    .gallery-item img {
+    .article-body ol {
+      list-style-type: decimal;
+      padding-left: 1.75rem;
+      margin-bottom: 1.75rem;
+    }
+    .article-body li {
+      margin-bottom: 0.65rem;
+      line-height: 1.75;
+    }
+    .article-body img {
+      border-radius: 1.5rem;
+      margin: 2.5rem 0;
       width: 100%;
-      height: 100%;
       object-fit: cover;
-      transition: transform 0.4s ease;
     }
-    .gallery-item:hover img {
-      transform: scale(1.05);
-    }
-    .gallery-caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 8px 12px;
-      background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
-      color: #fff;
-      font-size: 0.78rem;
+
+    /* Lightbox Modal */
+    .lightbox-open {
+      overflow: hidden;
     }
   </style>
+
+  <!-- Prevent theme flashing -->
+  <script>
+    if (localStorage.getItem('darkMode') === 'false') {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
 </head>
 
-<body class="text-slate-100 font-sans min-h-screen flex flex-col relative overflow-x-hidden">
-  <!-- Mesh background orbs -->
-  <div class="fixed inset-0 pointer-events-none z-0">
-    <div class="absolute top-[-20%] left-[10%] w-[60vw] h-[60vw] rounded-full bg-blue-600/20 blur-[130px]"></div>
-    <div class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-cyan-600/10 blur-[120px]"></div>
-  </div>
+<body class="bg-[#fafafa] dark:bg-[#0c0d12] text-neutral-800 dark:text-neutral-100 min-h-screen flex flex-col antialiased selection:bg-neutral-900 selection:text-white dark:selection:bg-white dark:selection:text-neutral-900">
 
-  <div class="relative z-10 page-transition flex-grow max-w-4xl w-full mx-auto px-6 py-12 flex flex-col justify-center">
-    <!-- Top Bar Navigation -->
-    <div class="flex items-center justify-between mb-8">
-      <div class="flex items-center gap-3">
-        <a href="journal.html"
-          class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-all backdrop-blur-md">
-          ← Semua Jurnal
-        </a>
-        <a href="index.html#blog"
-          class="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs text-slate-400 hover:text-slate-200 transition-colors">
-          Portofolio Utama
-        </a>
-      </div>
+  <!-- ========================================================================= -->
+  <!-- TOP NAVIGATION PILL BAR (IDENTICAL TO BLOG.HTML) -->
+  <!-- ========================================================================= -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-white/75 dark:bg-[#0c0d12]/75 border-b border-neutral-200/70 dark:border-neutral-800/70 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Left: Logo / Brand -->
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <div class="w-9 h-9 rounded-xl bg-neutral-900 dark:bg-white flex items-center justify-center p-1.5 shadow-sm group-hover:scale-105 transition-transform">
+          <img src="assets/icon apps/kaivisual New Logo-07.png" alt="Logo" class="w-full h-full object-contain filter invert dark:invert-0" />
+        </div>
+        <span class="text-xl font-bold tracking-tight text-neutral-900 dark:text-white">kaivisual</span>
+      </a>
 
-      <div class="flex items-center gap-3">
-        <button id="shareBtn" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
-          </svg>
-          <span id="shareBtnText">Bagikan</span>
+      <!-- Center: Pill Navigation Menu -->
+      <nav class="hidden md:flex items-center gap-1.5 bg-neutral-100/90 dark:bg-neutral-900/90 p-1 rounded-full border border-neutral-200/80 dark:border-neutral-800 shadow-sm text-xs font-semibold">
+        <a href="index.html" class="px-4 py-2 rounded-full text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors">Portfolio</a>
+        <a href="blog.html" class="px-4 py-2 rounded-full bg-white dark:bg-neutral-800 text-neutral-950 dark:text-white shadow-sm font-bold">Blog</a>
+        <a href="journal.html" class="px-4 py-2 rounded-full text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors">Journal &amp; Calendar</a>
+        <a href="all-about-me.html" class="px-4 py-2 rounded-full text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors">About</a>
+        <a href="index.html#contact" class="px-4 py-2 rounded-full text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors">Contact</a>
+      </nav>
+
+      <!-- Right: Action Controls -->
+      <div class="flex items-center gap-2.5">
+        <button id="langToggleBtn" class="h-9 px-3 rounded-full text-xs font-bold border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-800 shadow-sm transition-all" aria-label="Toggle language">
+          EN
+        </button>
+
+        <button id="darkModeBtn" class="w-9 h-9 rounded-full flex items-center justify-center text-sm border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-800 shadow-sm transition-all" aria-label="Toggle dark mode">
+          <span id="darkIcon">🌙</span>
+        </button>
+
+        <a href="https://wa.me/6285177100020" target="_blank" class="hidden sm:inline-flex items-center gap-2 pl-4 pr-3 py-2 rounded-full bg-[#dbeafe] hover:bg-[#c7ddfc] text-[#1e40af] dark:bg-[#1e293b] dark:hover:bg-[#27354a] dark:text-[#93c5fd] text-xs font-bold transition-all shadow-sm">
+          <span>Let's Collaborate</span>
+          <span class="w-5 h-5 rounded-full bg-neutral-900 dark:bg-[#93c5fd] text-white dark:text-neutral-900 flex items-center justify-center text-xs">↗</span>
+        </a>
+
+        <button id="mobileMenuBtn" class="md:hidden w-9 h-9 rounded-full flex items-center justify-center border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 text-sm">
+          ☰
         </button>
       </div>
+
     </div>
 
-    <!-- Article Container -->
-    <div id="articleCard" class="liquid-glass-card rounded-3xl p-8 md:p-12 border border-white/10 relative overflow-hidden">
-      <!-- Loading State -->
-      <div id="loadingIndicator" class="py-20 text-center text-slate-400">
-        <div class="inline-block w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin mb-4"></div>
-        <p class="text-sm">Memuat catatan jurnal...</p>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden px-4 pt-2 pb-5 border-t border-neutral-200 dark:border-neutral-800 bg-white/95 dark:bg-[#0c0d12]/95 backdrop-blur-lg">
+      <div class="flex flex-col gap-2 pt-2 text-sm font-semibold">
+        <a href="index.html" class="px-4 py-2.5 rounded-xl text-neutral-600 dark:text-neutral-300">Portfolio</a>
+        <a href="blog.html" class="px-4 py-2.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white font-bold">Blog</a>
+        <a href="journal.html" class="px-4 py-2.5 rounded-xl text-neutral-600 dark:text-neutral-300">Journal &amp; Calendar</a>
+        <a href="all-about-me.html" class="px-4 py-2.5 rounded-xl text-neutral-600 dark:text-neutral-300">About</a>
+        <a href="index.html#contact" class="px-4 py-2.5 rounded-xl text-neutral-600 dark:text-neutral-300">Contact</a>
       </div>
+    </div>
+  </header>
 
-      <!-- Unlisted Banner (Hidden by default) -->
-      <div id="unlistedNotice" class="hidden mb-6 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-200 text-xs flex items-center gap-3">
-        <svg class="w-5 h-5 flex-shrink-0 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+  <!-- ========================================================================= -->
+  <!-- MAIN DETAIL CONTAINER -->
+  <!-- ========================================================================= -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full">
+    
+    <!-- Top Back Navigation -->
+    <div class="mb-6">
+      <a href="blog.html" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white transition-all shadow-sm">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
-        <span>Ini adalah tulisan <strong>Unlisted</strong>. Tulisan ini tidak ditampilkan di halaman publik dan hanya bisa diakses via tautan khusus ini.</span>
-      </div>
-
-      <!-- Article Header -->
-      <div id="articleHeader" class="hidden">
-        <div class="flex flex-wrap items-center gap-3 mb-4">
-          <span id="postCategory" class="text-xs font-bold uppercase tracking-widest text-cyan-400">
-            Journal
-          </span>
-          <span class="text-slate-600 text-xs">•</span>
-          <span id="postEntryType" class="text-xs font-medium text-slate-400 uppercase tracking-wider">
-            Reflections
-          </span>
-          <span id="postMoodBadge" class="hidden px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-purple-500/20 border border-purple-500/30 text-purple-300">
-          </span>
-        </div>
-
-        <h1 id="postTitle" class="text-3xl md:text-5xl font-extrabold text-white mt-2 mb-6 tracking-tight leading-tight">
-        </h1>
-
-        <!-- Metadata row -->
-        <div class="flex flex-wrap items-center gap-4 text-xs text-slate-400 pb-8 border-b border-white/10 mb-8">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
-            <span id="postAuthor">M. Khairil Rahman</span>
-          </div>
-          <span>•</span>
-          <span id="postDate"></span>
-          <span>•</span>
-          <span id="postReadingTime">3 menit baca</span>
-        </div>
-
-        <!-- Cover Image -->
-        <img id="postCoverImage" src="" alt="Cover Image" class="hero-img hidden" />
-
-        <!-- Rich Text Prose Body -->
-        <div id="postContent" class="prose">
-        </div>
-
-        <!-- Photo Gallery (if attached) -->
-        <div id="postGallerySection" class="hidden mt-12 pt-8 border-t border-white/10">
-          <h3 class="text-xl font-bold text-white mb-2">Galeri Foto & Dokumentasi</h3>
-          <p class="text-xs text-slate-400 mb-6">Momen yang terekam pada hari ini.</p>
-          <div id="postGalleryGrid" class="gallery-grid"></div>
-        </div>
-
-        <!-- Footer Meta -->
-        <div class="mt-14 pt-8 border-t border-white/10 flex flex-wrap justify-between items-center gap-4 text-xs text-slate-400">
-          <p>Ditulis oleh Khairil — <span id="postFooterDate">A Journal of Becoming</span></p>
-          <a href="index.html#blog" class="text-cyan-400 hover:underline">← Baca tulisan lainnya</a>
-        </div>
-      </div>
-
-      <!-- Access Denied / Not Found Screen -->
-      <div id="errorScreen" class="hidden py-16 text-center">
-        <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400">
-          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-          </svg>
-        </div>
-        <h2 class="text-2xl font-bold text-white mb-2" id="errorTitle">Tulisan Tidak Ditemukan</h2>
-        <p class="text-sm text-slate-400 max-w-md mx-auto mb-6" id="errorMessage">
-          Tulisan ini mungkin telah dihapus, berstatus privat, atau tautan yang Anda buka tidak valid.
-        </p>
-        <div class="flex justify-center gap-4">
-          <a href="journal.html" class="px-5 py-2.5 rounded-full bg-cyan-600 hover:bg-cyan-500 text-xs font-semibold text-white transition-all shadow-lg shadow-cyan-600/20">
-            Jelajahi Semua Jurnal
-          </a>
-          <a href="index.html#blog" class="px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/15 text-xs font-semibold text-white transition-all">
-            Kembali ke Beranda
-          </a>
-        </div>
-      </div>
+        <span>Back to Blog</span>
+      </a>
     </div>
-  </div>
+
+    <!-- Article Big Bold Title (Matching Screenshot 1) -->
+    <h1 id="articleTitle" class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white mb-8 sm:mb-12 leading-[1.18] max-w-5xl">
+      Kreativitas Sudah Murah, Sekarang yang Mahal Itu Kejelasan Berpikir
+    </h1>
+
+    <!-- Two-Column Editorial Layout (Pixel-Matched with Screenshot 1) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+      
+      <!-- =================================================================== -->
+      <!-- LEFT COLUMN: STICKY ARTICLE INFO, TAGS & SHARE (lg:col-span-4) -->
+      <!-- =================================================================== -->
+      <aside class="lg:col-span-4">
+        <div class="sticky top-28 rounded-[28px] p-6 bg-white dark:bg-[#121318] border border-neutral-200/80 dark:border-neutral-800 shadow-[0_4px_25px_rgba(0,0,0,0.03)] space-y-6">
+          
+          <!-- Section 1: ARTICLE INFO -->
+          <div>
+            <h4 class="text-[11px] font-bold tracking-widest text-neutral-400 dark:text-neutral-500 uppercase mb-3.5">
+              ARTICLE INFO
+            </h4>
+            <div class="space-y-3 text-xs sm:text-sm font-medium text-neutral-700 dark:text-neutral-300">
+              <!-- Date -->
+              <div class="flex items-center gap-3">
+                <svg class="w-4 h-4 text-neutral-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span id="articleDate">September 1, 2026</span>
+              </div>
+              <!-- Reading Time -->
+              <div class="flex items-center gap-3">
+                <svg class="w-4 h-4 text-neutral-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span id="articleReadingTime">7 min read</span>
+              </div>
+              <!-- Views -->
+              <div class="flex items-center gap-3">
+                <svg class="w-4 h-4 text-neutral-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                <span id="articleViews">16 views</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <hr class="border-neutral-100 dark:border-neutral-800" />
+
+          <!-- Section 2: TAGS -->
+          <div>
+            <h4 class="text-[11px] font-bold tracking-widest text-neutral-400 dark:text-neutral-500 uppercase mb-3">
+              TAGS
+            </h4>
+            <div id="articleTags" class="flex flex-wrap gap-2">
+              <span class="text-xs px-3.5 py-1.5 rounded-full border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-medium">Kreativitas</span>
+              <span class="text-xs px-3.5 py-1.5 rounded-full border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-medium">Critical Thinking</span>
+              <span class="text-xs px-3.5 py-1.5 rounded-full border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-medium">Future of Work</span>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <hr class="border-neutral-100 dark:border-neutral-800" />
+
+          <!-- Section 3: SHARE -->
+          <div>
+            <h4 class="text-[11px] font-bold tracking-widest text-neutral-400 dark:text-neutral-500 uppercase mb-3">
+              SHARE
+            </h4>
+            <!-- Purple Share Article Pill Button (Exact Match) -->
+            <button id="shareBtn" class="w-full py-3.5 px-4 rounded-full bg-[#635BFF] hover:bg-[#5248ee] text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2.5 transition-all shadow-md shadow-indigo-500/25 active:scale-95">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+              </svg>
+              <span id="shareBtnLabel">Share Article</span>
+            </button>
+          </div>
+
+        </div>
+      </aside>
+
+      <!-- =================================================================== -->
+      <!-- RIGHT COLUMN: HERO IMAGE & LONG-FORM PROSE (lg:col-span-8) -->
+      <!-- =================================================================== -->
+      <article class="lg:col-span-8">
+        
+        <!-- Large Featured Image (Matching Screenshot 1) -->
+        <div class="rounded-[28px] overflow-hidden mb-8 border border-neutral-100 dark:border-neutral-800/80 shadow-sm bg-neutral-100 dark:bg-neutral-800">
+          <img id="articleFeaturedImg" src="https://images.unsplash.com/photo-1593062096033-9a26b09da705?q=80&w=1200" alt="Featured Article Cover" class="w-full max-h-[500px] object-cover" />
+        </div>
+
+        <!-- Article Editorial Body -->
+        <div id="articleBody" class="article-body text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal">
+          <p>
+            Selama bertahun-tahun, kreativitas dianggap sebagai salah satu kemampuan yang paling berharga di dunia kerja. Kemampuan untuk menghasilkan ide, membuat desain, menulis, menciptakan konsep, hingga menemukan cara baru dalam menyelesaikan masalah menjadi sesuatu yang membedakan satu orang dengan orang lainnya. Tidak semua orang bisa melakukannya, sehingga mereka yang memiliki kemampuan kreatif sering kali memiliki nilai lebih di pasar kerja.
+          </p>
+
+          <p>
+            Namun, perkembangan teknologi, terutama kecerdasan buatan atau artificial intelligence (AI), perlahan mulai mengubah lanskap tersebut. Kini, siapa pun dapat menghasilkan gambar artistik dalam hitungan detik hanya dengan mengetikkan beberapa kalimat prompt. Siapa pun dapat meminta AI menulis esai, membuat strategi konten media sosial, merancang skrip video, atau merangkum jurnal riset puluhan halaman dalam sekejap mata.
+          </p>
+
+          <blockquote class="bg-[#635bff]/5 text-neutral-800 dark:text-neutral-200">
+            "Ketika alat produksi konten menjadi komoditas murah yang dapat diakses siapa saja, nilai kreativitas tanpa arah menyusut. Nilai tertinggi berpindah kepada kejernihan berpikir: mengetahui masalah mana yang sebenarnya layak dipecahkan."
+          </blockquote>
+
+          <h2>Mengapa Kejelasan Berpikir Menjadi Sangat Mahal?</h2>
+
+          <p>
+            Di tengah melimpahnya informasi dan kemudahan eksekusi, tantangan terbesar kita bukan lagi <em>"Bagaimana cara membuat ini?"</em> melainkan <em>"Mengapa kita harus membuat ini?"</em>.
+          </p>
+
+          <p>
+            Kejelasan berpikir (clarity of thought) menuntut kemampuan berpikir kritis, menyaring noise dari signal, memahami motivasi psikologis manusia, dan mengambil keputusan strategis di bawah ketidakpastian. Desainer grafis yang hanya mengandalkan skill teknis menggeser pixel akan terdistribusi oleh AI. Tetapi desainer yang memahami strategi visual, arsitektur informasi, dan emosi audiens justru akan menjadi semakin krusial.
+          </p>
+
+          <h2>Tiga Pilar Mengasah Kejernihan Berpikir</h2>
+
+          <ul>
+            <li><strong>First Principles Thinking:</strong> Membedah masalah hingga ke kebenaran paling mendasar, bukan sekadar meniru apa yang sedang tren di industri.</li>
+            <li><strong>Sintesis Lintas Disiplin:</strong> Menghubungkan titik-titik antara seni visual, psikologi kognitif, teknologi, dan bisnis nyata.</li>
+            <li><strong>Menulis &amp; Menjurnal Secara Rutin:</strong> Menulis adalah bentuk berpikir yang paling terstruktur. Anda tidak benar-benar memahami sebuah ide sampai Anda mampu menjelaskannya dalam kalimat sederhana.</li>
+          </ul>
+
+          <p>
+            Ke depan, kita tidak kekurangan orang yang bisa membuat visual bagus. Yang sangat langka adalah orang yang tahu persis ke mana arah visual tersebut harus melangkah.
+          </p>
+        </div>
+
+        <!-- Attached Photo Gallery (If multiple photos uploaded for journal entry) -->
+        <div id="attachedGallery" class="hidden mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800">
+          <h3 class="text-xl font-bold text-neutral-900 dark:text-white mb-3">Galeri Foto &amp; Dokumentasi</h3>
+          <p class="text-xs text-neutral-400 mb-6">Momen visual yang terekam pada catatan ini.</p>
+          <div id="galleryGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-4"></div>
+        </div>
+
+        <!-- Author Signature Card -->
+        <div class="mt-14 p-6 sm:p-8 rounded-[28px] bg-white dark:bg-[#121318] border border-neutral-200/80 dark:border-neutral-800 flex items-center gap-5 shadow-sm">
+          <img src="assets/profile.jpg" alt="M. Khairil Rahman" class="w-16 h-16 rounded-full object-cover border-2 border-neutral-200 dark:border-neutral-700 flex-shrink-0" />
+          <div>
+            <h4 class="font-bold text-neutral-900 dark:text-white text-base">M. Khairil Rahman</h4>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-relaxed">
+              Graphic Designer, Creative Thinker &amp; Frontend Enthusiast. Berbagi refleksi hidup, proses desain, dan eksplorasi teknologi AI.
+            </p>
+          </div>
+        </div>
+
+      </article>
+
+    </div>
+
+  </main>
 
   <!-- Fullscreen Lightbox Modal -->
   <div id="lightboxModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
-    <button id="closeLightbox" class="absolute top-6 right-6 text-white/70 hover:text-white p-2">
-      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-      </svg>
+    <button id="closeLightbox" class="absolute top-6 right-6 text-white/70 hover:text-white p-2 text-2xl">
+      ✕
     </button>
     <div class="max-w-5xl max-h-[90vh] flex flex-col items-center">
-      <img id="lightboxImg" src="" alt="Enlarged Photo" class="max-h-[80vh] max-w-full rounded-xl object-contain shadow-2xl" />
-      <p id="lightboxCaption" class="mt-4 text-sm text-slate-300 text-center"></p>
+      <img id="lightboxImg" src="" alt="Enlarged Photo" class="max-h-[80vh] max-w-full rounded-2xl object-contain shadow-2xl" />
+      <p id="lightboxCaption" class="mt-4 text-sm text-neutral-300 text-center"></p>
     </div>
   </div>
 
-  <!-- Dependencies -->
+  <!-- Footer -->
+  <footer class="mt-auto border-t border-neutral-200 dark:border-neutral-800 py-10 bg-white dark:bg-[#0c0d12] text-xs text-neutral-500 dark:text-neutral-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <img src="assets/icon apps/kaivisual New Logo-07.png" alt="Logo" class="w-5 h-5 object-contain filter invert dark:invert-0" />
+        <span>&copy; 2026 M. Khairil Rahman. All rights reserved.</span>
+      </div>
+      <div class="flex items-center gap-5">
+        <a href="index.html" class="hover:text-neutral-900 dark:hover:text-white transition-colors">Portfolio</a>
+        <a href="blog.html" class="hover:text-neutral-900 dark:hover:text-white transition-colors">Blog</a>
+        <a href="journal.html" class="hover:text-neutral-900 dark:hover:text-white transition-colors">Journal Calendar</a>
+        <a href="admin/blog/login.html" class="hover:text-neutral-900 dark:hover:text-white transition-colors">Author CMS</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Supabase Dependencies -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="assets/js/supabase-config.js"></script>
   <script src="assets/js/supabase-client.js"></script>
 
+  <!-- Dynamic Post Loader Script -->
   <script>
-    (async function() {
+    // ─── CURATED ARTICLES DATABASE (FALLBACK & SEED) ──────────────────────
+    const STATIC_ARTICLES_DATA = {
+      'kreativitas-sudah-murah': {
+        title: 'Kreativitas Sudah Murah, Sekarang yang Mahal Itu Kejelasan Berpikir',
+        date: 'September 1, 2026',
+        readingTime: '7 min read',
+        views: 16,
+        tags: ['Kreativitas', 'Critical Thinking', 'Future of Work'],
+        coverImage: 'https://images.unsplash.com/photo-1593062096033-9a26b09da705?q=80&w=1200',
+        content: `
+          <p>Selama bertahun-tahun, kreativitas dianggap sebagai salah satu kemampuan yang paling berharga di dunia kerja. Kemampuan untuk menghasilkan ide, membuat desain, menulis, menciptakan konsep, hingga menemukan cara baru dalam menyelesaikan masalah menjadi sesuatu yang membedakan satu orang dengan orang lainnya. Tidak semua orang bisa melakukannya, sehingga mereka yang memiliki kemampuan kreatif sering kali memiliki nilai lebih di pasar kerja.</p>
+          <p>Namun, perkembangan teknologi, terutama kecerdasan buatan atau artificial intelligence (AI), perlahan mulai mengubah lanskap tersebut. Kini, siapa pun dapat menghasilkan gambar artistik dalam hitungan detik hanya dengan mengetikkan beberapa kalimat prompt. Siapa pun dapat meminta AI menulis esai, membuat strategi konten media sosial, merancang skrip video, atau merangkum jurnal riset puluhan halaman dalam sekejap mata.</p>
+          <blockquote class="bg-[#635bff]/5 text-neutral-800 dark:text-neutral-200">
+            "Ketika alat produksi konten menjadi komoditas murah yang dapat diakses siapa saja, nilai kreativitas tanpa arah menyusut. Nilai tertinggi berpindah kepada kejernihan berpikir: mengetahui masalah mana yang sebenarnya layak dipecahkan."
+          </blockquote>
+          <h2>Mengapa Kejelasan Berpikir Menjadi Sangat Mahal?</h2>
+          <p>Di tengah melimpahnya informasi dan kemudahan eksekusi, tantangan terbesar kita bukan lagi <em>"Bagaimana cara membuat ini?"</em> melainkan <em>"Mengapa kita harus membuat ini?"</em>.</p>
+          <p>Kejelasan berpikir (clarity of thought) menuntut kemampuan berpikir kritis, menyaring noise dari signal, memahami motivasi psikologis manusia, dan mengambil keputusan strategis di bawah ketidakpastian. Desainer grafis yang hanya mengandalkan skill teknis menggeser pixel akan terdistribusi oleh AI. Tetapi desainer yang memahami strategi visual, arsitektur informasi, dan emosi audiens justru akan menjadi semakin krusial.</p>
+          <h2>Tiga Pilar Mengasah Kejernihan Berpikir</h2>
+          <ul>
+            <li><strong>First Principles Thinking:</strong> Membedah masalah hingga ke kebenaran paling mendasar, bukan sekadar meniru apa yang sedang tren di industri.</li>
+            <li><strong>Sintesis Lintas Disiplin:</strong> Menghubungkan titik-titik antara seni visual, psikologi kognitif, teknologi, dan bisnis nyata.</li>
+            <li><strong>Menulis &amp; Menjurnal Secara Rutin:</strong> Menulis adalah bentuk berpikir yang paling terstruktur. Anda tidak benar-benar memahami sebuah ide sampai Anda mampu menjelaskannya dalam kalimat sederhana.</li>
+          </ul>
+          <p>Ke depan, kita tidak kekurangan orang yang bisa membuat visual bagus. Yang sangat langka adalah orang yang tahu persis ke mana arah visual tersebut harus melangkah.</p>
+        `
+      },
+      'ai-influencer-ancaman-privasi-data': {
+        title: 'AI influencer: Ancaman privasi data dan pemalsuan identitas di balik tren baru',
+        date: 'September 1, 2026',
+        readingTime: '5 min read',
+        views: 5,
+        tags: ['artificial intelligence', 'AI', 'Influencer'],
+        coverImage: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1200',
+        content: `
+          <p>Kemunculan artificial intelligence (AI) influencer menunjukkan bahwa perkembangan teknologi sudah menembus batas-batas baru dalam ranah personal branding, pemasaran digital, dan persepsi publik. Entitas digital yang tidak bernafas kini memiliki jutaan pengikut dan endorsement brand bernilai ratusan juta rupiah.</p>
+          <p>Namun di balik gemerlap estetika sintetis tersebut, tersimpan implikasi mendalam tentang privasi data, perlindungan identitas, dan distorsi realitas. Ketika wajah, suara, dan kepribadian dapat disimulasikan secara sempurna tanpa persetujuan, batas antara keaslian dan manipulasi menjadi kabur.</p>
+          <h2>Ancaman Deepfake dan Keamanan Personal</h2>
+          <p>Model AI dilatih menggunakan miliaran foto publik yang tersebar di internet. Setiap foto yang kita unggah berpotensi menjadi bahan bakar algoritma generatif tanpa kita sadari. Hal ini membuka celah pemalsuan identitas massal dan pencemaran nama baik berbasis sintetis.</p>
+        `
+      },
+      'apakah-teknologi-ai-berpotensi-menggeser-desainer': {
+        title: 'Apakah Teknologi AI Berpotensi Menggeser Desainer Di Masa Depan?',
+        date: 'September 1, 2026',
+        readingTime: '10 min read',
+        views: 3,
+        tags: ['Teknologi AI', 'AI', 'artificial intelligence'],
+        coverImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200',
+        content: `
+          <p>Kemajuan teknologi kecerdasan buatan AI telah menciptakan perubahan besar di berbagai industri kreatif. Alat seperti Midjourney, DALL-E, dan Stable Diffusion memungkinkan siapa saja menciptakan ilustrasi kompleks hanya dari beberapa kata perintah.</p>
+          <p>Apakah ini berarti akhir dari profesi desainer grafis? Sejarah membuktikan bahwa kemunculan fotografi tidak mematikan seni lukis, dan penemuan Adobe Photoshop tidak memusnahkan ilustrator tangan. Sebaliknya, alat baru mengubah peran profesional menjadi kurator, sutradara kreatif, dan arsitek pengalaman.</p>
+          <h2>Evolusi Peran: Dari Operator Alat Menjadi Creative Director</h2>
+          <p>Desainer masa depan tidak lagi dinilai dari seberapa cepat mereka membuat clipping mask di Photoshop, melainkan seberapa dalam mereka memahami empati pengguna, konteks budaya, dan komunikasi visual yang bermakna.</p>
+        `
+      }
+    };
+
+    // ─── INITIALIZE DETAIL PAGE ────────────────────────────────────────
+    (async function initDetailPage() {
       const params = new URLSearchParams(window.location.search);
-      const slug = params.get('slug');
+      const slug = params.get('slug') || 'kreativitas-sudah-murah';
       const token = params.get('token');
-      const id = params.get('id');
 
-      const loading = document.getElementById('loadingIndicator');
-      const header = document.getElementById('articleHeader');
-      const errorScreen = document.getElementById('errorScreen');
-      const unlistedNotice = document.getElementById('unlistedNotice');
-
-      if (!slug && !id) {
-        window.location.replace('journal.html');
-        return;
+      // Increment view counter locally and via Supabase
+      const viewStorageKey = `viewed_${slug}`;
+      let isFirstVisit = false;
+      if (!sessionStorage.getItem(viewStorageKey)) {
+        sessionStorage.setItem(viewStorageKey, 'true');
+        isFirstVisit = true;
       }
 
-      if (!window.JournalAPI) {
-        showError('Konfigurasi Belum Aktif', 'Koneksi ke backend jurnal belum siap.');
-        return;
+      let entry = null;
+
+      // 1. Try Supabase backend if configured
+      if (window.JournalAPI) {
+        try {
+          if (token) {
+            entry = await window.JournalAPI.getUnlistedEntry(slug, token);
+          }
+          if (!entry) {
+            entry = await window.JournalAPI.getEntryBySlug(slug);
+          }
+          if (entry && isFirstVisit) {
+            window.JournalAPI.incrementViews(slug);
+          }
+        } catch (e) {
+          console.warn('[Post Detail] Supabase lookup fallback to static dictionary:', e);
+        }
       }
 
-      try {
-        let entry = null;
-
-        // 1. Try unlisted entry first if token provided
-        if (token && slug) {
-          entry = await window.JournalAPI.getUnlistedEntry(slug, token);
-          if (entry) {
-            unlistedNotice.classList.remove('hidden');
-          }
-        }
-
-        // 2. Try public entry by slug
-        if (!entry && slug) {
-          entry = await window.JournalAPI.getEntryBySlug(slug);
-        }
-
-        // 3. If authenticated author, check if it's a private or draft entry
-        if (!entry) {
-          const user = await window.JournalAPI.getCurrentUser();
-          if (user) {
-            if (id) {
-              entry = await window.JournalAPI.getAdminEntryById(id);
-            } else if (slug) {
-              // Try finding in user's entries
-              const client = window.JournalAPI.getClient();
-              if (client) {
-                const { data } = await client.from('entries').select('*, category:categories(*), media:media(*)').eq('slug', slug).single();
-                entry = data;
-              }
-            }
-          }
-        }
-
-        if (!entry) {
-          showError('Tulisan Tidak Ditemukan', 'Tulisan tidak dapat ditemukan atau Anda tidak memiliki akses untuk membacanya.');
-          return;
-        }
-
-        // Check privacy access: if private and not author, block
-        if (entry.visibility === 'private') {
-          const user = await window.JournalAPI.getCurrentUser();
-          if (!user || user.id !== entry.user_id) {
-            showError('Tulisan Bersifat Rahasia', 'Tulisan ini dikunci secara privat oleh pemilik jurnal. Silakan login jika Anda adalah pemilik.');
-            return;
-          }
-        }
-
-        // Render article data
-        renderEntry(entry);
-      } catch (err) {
-        console.error('[Journal Detail] Error:', err);
-        showError('Terjadi Kesalahan', 'Gagal memuat isi artikel: ' + (err.message || 'Error jaringan.'));
-      }
-
-      function renderEntry(entry) {
-        loading.classList.add('hidden');
-        header.classList.remove('hidden');
-
-        document.getElementById('pageTitle').textContent = `${entry.title} — Jurnal`;
-        if (entry.excerpt) {
-          document.getElementById('metaDescription').setAttribute('content', entry.excerpt);
-        }
-
-        document.getElementById('postTitle').textContent = entry.title;
-
-        if (entry.category && entry.category.name) {
-          document.getElementById('postCategory').textContent = entry.category.name;
-        }
-
-        const entryTypeNames = {
-          daily_journal: 'Daily Journal',
-          personal_thoughts: 'Personal Thoughts',
-          daily_activities: 'Daily Activities',
-          reflections: 'Reflections',
-          experiences: 'Experiences',
-          learning_notes: 'Learning Notes',
-          memories: 'Memories'
+      // 2. Fallback to static articles database if not found in Supabase
+      if (!entry && STATIC_ARTICLES_DATA[slug]) {
+        const staticData = STATIC_ARTICLES_DATA[slug];
+        entry = {
+          title: staticData.title,
+          slug: slug,
+          happened_at: staticData.date,
+          reading_time_minutes: parseInt(staticData.readingTime),
+          view_count: staticData.views + (isFirstVisit ? 1 : 0),
+          cover_image: staticData.coverImage,
+          content_html: staticData.content,
+          tags: staticData.tags.map(t => ({ tag: { name: t } }))
         };
-        document.getElementById('postEntryType').textContent = entryTypeNames[entry.entry_type] || 'Journal';
+      }
 
-        if (entry.mood) {
-          const moodBadge = document.getElementById('postMoodBadge');
-          moodBadge.textContent = 'Mood: ' + entry.mood;
-          moodBadge.classList.remove('hidden');
+      // Render data into the DOM
+      if (entry) {
+        renderArticle(entry);
+      } else {
+        // Default to first article if slug not matched
+        renderArticle({
+          title: 'Kreativitas Sudah Murah, Sekarang yang Mahal Itu Kejelasan Berpikir',
+          happened_at: 'September 1, 2026',
+          reading_time_minutes: 7,
+          view_count: 16,
+          cover_image: 'https://images.unsplash.com/photo-1593062096033-9a26b09da705?q=80&w=1200',
+          content_html: STATIC_ARTICLES_DATA['kreativitas-sudah-murah'].content,
+          tags: [{ tag: { name: 'Kreativitas' } }, { tag: { name: 'Critical Thinking' } }, { tag: { name: 'Future of Work' } }]
+        });
+      }
+
+      function renderArticle(data) {
+        document.getElementById('pageTitle').textContent = `${data.title} — M. Khairil Rahman`;
+        document.getElementById('articleTitle').textContent = data.title;
+        
+        // Date formatting
+        if (data.happened_at || data.published_at || data.created_at) {
+          const rawDate = data.happened_at || data.published_at || data.created_at;
+          const d = new Date(rawDate);
+          if (!isNaN(d.getTime())) {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            document.getElementById('articleDate').textContent = `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+          } else {
+            document.getElementById('articleDate').textContent = rawDate;
+          }
         }
 
-        const dateObj = new Date(entry.happened_at || entry.published_at || entry.created_at);
-        const formattedDate = dateObj.toLocaleDateString('id-ID', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        });
-        document.getElementById('postDate').textContent = formattedDate;
-        document.getElementById('postReadingTime').textContent = `${entry.reading_time_minutes || 3} menit baca`;
+        // Reading time & views
+        document.getElementById('articleReadingTime').textContent = `${data.reading_time_minutes || 5} min read`;
+        document.getElementById('articleViews').textContent = `${data.view_count || 16} views`;
 
         // Cover image
-        if (entry.cover_image) {
-          const cover = document.getElementById('postCoverImage');
-          cover.src = entry.cover_image;
-          cover.alt = entry.title;
-          cover.classList.remove('hidden');
+        if (data.cover_image) {
+          document.getElementById('articleFeaturedImg').src = data.cover_image;
         }
 
-        // Content body
-        const contentDiv = document.getElementById('postContent');
-        if (entry.content_html) {
-          contentDiv.innerHTML = entry.content_html;
-        } else if (typeof entry.content === 'string') {
-          contentDiv.innerHTML = entry.content;
-        } else if (entry.excerpt) {
-          contentDiv.innerHTML = `<p>${entry.excerpt}</p>`;
+        // Tags
+        const tagsContainer = document.getElementById('articleTags');
+        let tagNames = [];
+        if (Array.isArray(data.tags)) {
+          tagNames = data.tags.map(t => typeof t === 'string' ? t : (t.name || (t.tag && t.tag.name) || '')).filter(Boolean);
         }
-
-        // Gallery Photos
-        if (entry.media && entry.media.length > 0) {
-          const gallerySection = document.getElementById('postGallerySection');
-          const galleryGrid = document.getElementById('postGalleryGrid');
-          gallerySection.classList.remove('hidden');
-          galleryGrid.innerHTML = entry.media.map(m => `
-            <div class="gallery-item" onclick="openLightbox('${m.url}', '${m.caption ? m.caption.replace(/'/g, "\\'") : ''}')">
-              <img src="${m.url}" alt="${m.alt_text || m.caption || 'Foto Dokumentasi'}" loading="lazy" />
-              ${m.caption ? `<div class="gallery-caption">${m.caption}</div>` : ''}
-            </div>
+        if (tagNames.length > 0) {
+          tagsContainer.innerHTML = tagNames.map(tag => `
+            <span class="text-xs px-3.5 py-1.5 rounded-full border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-medium">
+              ${tag}
+            </span>
           `).join('');
         }
 
-        // Share button action
-        document.getElementById('shareBtn').addEventListener('click', () => {
-          let shareUrl = window.location.href;
-          if (entry.visibility === 'unlisted' && entry.unlisted_token && !shareUrl.includes('token=')) {
-            shareUrl += `&token=${entry.unlisted_token}`;
-          }
-          if (navigator.clipboard) {
-            navigator.clipboard.writeText(shareUrl).then(() => {
-              const textSpan = document.getElementById('shareBtnText');
-              textSpan.textContent = 'Tersalin!';
-              setTimeout(() => { textSpan.textContent = 'Bagikan'; }, 2500);
-            });
-          }
-        });
+        // Body content
+        if (data.content_html) {
+          document.getElementById('articleBody').innerHTML = data.content_html;
+        }
+
+        // Gallery Photos if present
+        if (data.media && data.media.length > 0) {
+          const gallerySec = document.getElementById('attachedGallery');
+          const grid = document.getElementById('galleryGrid');
+          gallerySec.classList.remove('hidden');
+          grid.innerHTML = data.media.map(m => `
+            <div class="rounded-xl overflow-hidden aspect-square cursor-pointer border border-neutral-200 dark:border-neutral-800 hover:scale-[1.02] transition-transform" onclick="openLightbox('${m.url}', '${(m.caption || '').replace(/'/g, "\\'")}')">
+              <img src="${m.url}" alt="${m.alt_text || 'Photo'}" class="w-full h-full object-cover" loading="lazy" />
+            </div>
+          `).join('');
+        }
       }
 
-      function showError(title, message) {
-        loading.classList.add('hidden');
-        header.classList.add('hidden');
-        errorScreen.classList.remove('hidden');
-        document.getElementById('errorTitle').textContent = title;
-        document.getElementById('errorMessage').textContent = message;
-      }
+      // ─── SHARE BUTTON BEHAVIOR ─────────────────────────────────────────
+      const shareBtn = document.getElementById('shareBtn');
+      const shareBtnLabel = document.getElementById('shareBtnLabel');
+
+      shareBtn.addEventListener('click', async () => {
+        const shareData = {
+          title: document.getElementById('articleTitle').textContent,
+          text: 'Baca tulisan menarik ini dari Khairil Rahman:',
+          url: window.location.href
+        };
+
+        if (navigator.share && window.matchMedia('(max-width: 768px)').matches) {
+          try {
+            await navigator.share(shareData);
+            return;
+          } catch (err) {
+            // Cancelled or fallback to clipboard
+          }
+        }
+
+        if (navigator.clipboard) {
+          await navigator.clipboard.writeText(window.location.href);
+          shareBtnLabel.textContent = 'Link Copied! ✓';
+          setTimeout(() => {
+            shareBtnLabel.textContent = 'Share Article';
+          }, 2500);
+        }
+      });
+
     })();
 
-    // Lightbox Controls
+    // ─── LIGHTBOX CONTROLS ─────────────────────────────────────────────
     function openLightbox(url, caption) {
       const modal = document.getElementById('lightboxModal');
-      const img = document.getElementById('lightboxImg');
-      const cap = document.getElementById('lightboxCaption');
-      img.src = url;
-      cap.textContent = caption || '';
+      document.getElementById('lightboxImg').src = url;
+      document.getElementById('lightboxCaption').textContent = caption || '';
       modal.classList.remove('hidden');
+      document.body.classList.add('lightbox-open');
     }
 
     document.getElementById('closeLightbox').addEventListener('click', () => {
       document.getElementById('lightboxModal').classList.add('hidden');
+      document.body.classList.remove('lightbox-open');
     });
 
     document.getElementById('lightboxModal').addEventListener('click', (e) => {
       if (e.target.id === 'lightboxModal') {
         document.getElementById('lightboxModal').classList.add('hidden');
+        document.body.classList.remove('lightbox-open');
       }
+    });
+
+    // ─── THEME TOGGLE ──────────────────────────────────────────────────
+    const darkModeBtn = document.getElementById('darkModeBtn');
+    const darkIcon = document.getElementById('darkIcon');
+
+    function updateThemeIcon() {
+      const isDark = document.documentElement.classList.contains('dark');
+      darkIcon.textContent = isDark ? '🌙' : '☀️';
+    }
+
+    darkModeBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      localStorage.setItem('darkMode', isDark);
+      updateThemeIcon();
+    });
+    updateThemeIcon();
+
+    // ─── LANGUAGE TOGGLE ───────────────────────────────────────────────
+    const langBtn = document.getElementById('langToggleBtn');
+    let currentLang = localStorage.getItem('lang') || 'en';
+    langBtn.textContent = currentLang.toUpperCase();
+
+    langBtn.addEventListener('click', () => {
+      currentLang = currentLang === 'en' ? 'id' : 'en';
+      localStorage.setItem('lang', currentLang);
+      langBtn.textContent = currentLang.toUpperCase();
+    });
+
+    // ─── MOBILE MENU TOGGLE ────────────────────────────────────────────
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
     });
   </script>
 </body>
-
 </html>
-

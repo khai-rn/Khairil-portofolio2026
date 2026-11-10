@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — M. Khairil Rahman | Design &amp; Web Development</title>
+  <meta name="description" content="Notes, thoughts, and tutorials on design, AI, branding, and web development by M. Khairil Rahman." />
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Outfit', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Smooth theme transitions */
+    body {
+      transition: background-color 0.25s ease, color 0.25s ease;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(150, 150, 150, 0.25);
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(150, 150, 150, 0.45);
+    }
+
+    .filter-pill.active {
+      background-color: #171717;
+      color: #ffffff;
+      border-color: #171717;
+    }
+    .dark .filter-pill.active {
+      background-color: #ffffff;
+      color: #171717;
+      border-color: #ffffff;
+    }
+  </style>
+
+  <!-- Initialize theme before DOM render to prevent flash -->
+  <script>
+    if (localStorage.getItem('darkMode') === 'false') {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+</head>
+
+<body class="bg-[#fafafa] dark:bg-[#0c0d12] text-neutral-800 dark:text-neutral-100 min-h-screen flex flex-col antialiased selection:bg-neutral-900 selection:text-white dark:selection:bg-white dark:selection:text-neutral-900">
+
+  <!-- ========================================================================= -->
+  <!-- TOP NAVIGATION PILL BAR (MATCHING SCREENSHOT) -->
+  <!-- ========================================================================= -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-white/75 dark:bg-[#0c0d12]/75 border-b border-neutral-200/70 dark:border-neutral-800/70 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Left: Logo / Brand -->
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <div class="w-9 h-9 rounded-xl bg-neutral-900 dark:bg-white flex items-center justify-center p-1.5 shadow-sm group-hover:scale-105 transition-transform">
+          <img src="assets/icon apps/kaivisual New Logo-07.png" alt="Logo" class="w-full h-full object-contain filter invert dark:invert-0" />
+        </div>
+        <span class="text-xl font-bold tracking-tight text-neutral-900 dark:text-white">kaivisual</span>
+      </a>
+
+      <!-- Center: Pill Navigation Menu -->
+      <nav class="hidden md:flex items-center gap-1.5 bg-neutral-100/90 dark:bg-neutral-900/90 p-1 rounded-full border border-neutral-200/80 dark:border-neutral-800 shadow-sm text-xs font-semibold">
+        <a href="index.html" class="px-4 py-2 rounded-full text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors">Portfolio</a>
+        <a href="blog.html" class="px-4 py-2 rounded-full bg-white dark:bg-neutral-800 text-neutral-950 dark:text-white shadow-sm font-bold">Blog</a>
+        <a href="journal.html" class="px-4 py-2 rounded-full text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors">Journal &amp; Calendar</a>
+        <a href="all-about-me.html" class="px-4 py-2 rounded-full text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors">About</a>
+        <a href="index.html#contact" class="px-4 py-2 rounded-full text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors">Contact</a>
+      </nav>
+
+      <!-- Right: Action Controls -->
+      <div class="flex items-center gap-2.5">
+        <!-- Language Switcher -->
+        <button id="langToggleBtn" class="h-9 px-3 rounded-full text-xs font-bold border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-800 shadow-sm transition-all" aria-label="Toggle language">
+          EN
+        </button>
+
+        <!-- Dark Mode Switcher -->
+        <button id="darkModeBtn" class="w-9 h-9 rounded-full flex items-center justify-center text-sm border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-800 shadow-sm transition-all" aria-label="Toggle dark mode">
+          <span id="darkIcon">🌙</span>
+        </button>
+
+        <!-- Let's Collaborate CTA Pill -->
+        <a href="https://wa.me/6285177100020" target="_blank" class="hidden sm:inline-flex items-center gap-2 pl-4 pr-3 py-2 rounded-full bg-[#dbeafe] hover:bg-[#c7ddfc] text-[#1e40af] dark:bg-[#1e293b] dark:hover:bg-[#27354a] dark:text-[#93c5fd] text-xs font-bold transition-all shadow-sm">
+          <span>Let's Collaborate</span>
+          <span class="w-5 h-5 rounded-full bg-neutral-900 dark:bg-[#93c5fd] text-white dark:text-neutral-900 flex items-center justify-center text-xs">↗</span>
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobileMenuBtn" class="md:hidden w-9 h-9 rounded-full flex items-center justify-center border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 text-sm" aria-label="Mobile menu">
+          ☰
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobileMenu" class="hidden md:hidden px-4 pt-2 pb-5 border-t border-neutral-200 dark:border-neutral-800 bg-white/95 dark:bg-[#0c0d12]/95 backdrop-blur-lg">
+      <div class="flex flex-col gap-2 pt-2 text-sm font-semibold">
+        <a href="index.html" class="px-4 py-2.5 rounded-xl text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800">Portfolio</a>
+        <a href="blog.html" class="px-4 py-2.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white font-bold">Blog</a>
+        <a href="journal.html" class="px-4 py-2.5 rounded-xl text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800">Journal &amp; Calendar</a>
+        <a href="all-about-me.html" class="px-4 py-2.5 rounded-xl text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800">About</a>
+        <a href="index.html#contact" class="px-4 py-2.5 rounded-xl text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800">Contact</a>
+        <div class="pt-2">
+          <a href="https://wa.me/6285177100020" target="_blank" class="w-full py-2.5 rounded-full bg-[#dbeafe] text-[#1e40af] dark:bg-[#1e293b] dark:text-[#93c5fd] font-bold text-xs flex items-center justify-center gap-2">
+            Let's Collaborate ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN CONTENT CONTAINER -->
+  <!-- ========================================================================= -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 w-full">
+    
+    <!-- Hero Header Title (Matching Screenshot 2) -->
+    <div class="mb-10 sm:mb-14">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-neutral-900 dark:text-white mb-3">
+        Blog
+      </h1>
+      <p class="text-neutral-500 dark:text-neutral-400 text-base sm:text-lg max-w-2xl font-normal leading-relaxed" id="blogSubtitle">
+        Notes, thoughts, and tutorials on design &amp; web development.
+      </p>
+
+      <!-- Search & Category Filters -->
+      <div class="mt-8 flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-neutral-200/80 dark:border-neutral-800">
+        
+        <!-- Category Filter Pills -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none" id="categoryPills">
+          <button class="filter-pill active px-4 py-1.5 rounded-full text-xs font-semibold border border-neutral-200 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-800/80 text-neutral-700 dark:text-neutral-300 transition-all flex-shrink-0" data-cat="all">
+            All Posts
+          </button>
+          <button class="filter-pill px-4 py-1.5 rounded-full text-xs font-semibold border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800/50 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-all flex-shrink-0" data-cat="design">
+            Design &amp; Branding
+          </button>
+          <button class="filter-pill px-4 py-1.5 rounded-full text-xs font-semibold border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800/50 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-all flex-shrink-0" data-cat="ai">
+            Artificial Intelligence
+          </button>
+          <button class="filter-pill px-4 py-1.5 rounded-full text-xs font-semibold border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800/50 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-all flex-shrink-0" data-cat="thoughts">
+            Critical Thinking
+          </button>
+          <button class="filter-pill px-4 py-1.5 rounded-full text-xs font-semibold border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800/50 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-all flex-shrink-0" data-cat="journal">
+            Journal of Becoming
+          </button>
+        </div>
+
+        <!-- Search Bar & Switch View Actions -->
+        <div class="flex items-center gap-3">
+          <div class="relative w-full sm:w-64">
+            <input type="text" id="searchInput" placeholder="Search articles..." class="w-full pl-9 pr-4 py-2 rounded-full text-xs font-medium border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-white transition-all shadow-sm" />
+            <svg class="w-4 h-4 absolute left-3 top-2.5 text-neutral-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+          
+          <a href="journal.html" class="p-2 rounded-full border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white shadow-sm transition-all" title="View Journal Calendar">
+            📅
+          </a>
+          <a href="admin/blog/editor.html" class="p-2 rounded-full border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white shadow-sm transition-all" title="Write New Post">
+            ✍️
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- 3-COLUMN CARD GRID (EXACTLY MATCHING SCREENSHOT 2) -->
+    <!-- ===================================================================== -->
+    <div id="postsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      <!-- Loading Skeleton State -->
+      <div class="col-span-full py-16 text-center text-neutral-400">
+        <div class="inline-block w-8 h-8 border-2 border-neutral-900 dark:border-white border-t-transparent rounded-full animate-spin mb-3"></div>
+        <p class="text-sm font-medium">Loading articles...</p>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="hidden text-center py-20">
+      <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center text-2xl">
+        🔍
+      </div>
+      <h3 class="text-lg font-bold text-neutral-900 dark:text-white mb-1">No articles found</h3>
+      <p class="text-sm text-neutral-500 dark:text-neutral-400 max-w-sm mx-auto mb-6">
+        Try adjusting your search terms or filter selection.
+      </p>
+      <button id="resetFilterBtn" class="px-5 py-2 rounded-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-xs font-semibold">
+        Reset Filters
+      </button>
+    </div>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- FOOTER -->
+  <!-- ========================================================================= -->
+  <footer class="mt-auto border-t border-neutral-200 dark:border-neutral-800 py-10 bg-white dark:bg-[#0c0d12] text-xs text-neutral-500 dark:text-neutral-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <img src="assets/icon apps/kaivisual New Logo-07.png" alt="Logo" class="w-5 h-5 object-contain filter invert dark:invert-0" />
+        <span>&copy; 2026 M. Khairil Rahman. All rights reserved.</span>
+      </div>
+      <div class="flex items-center gap-5">
+        <a href="index.html" class="hover:text-neutral-900 dark:hover:text-white transition-colors">Portfolio</a>
+        <a href="journal.html" class="hover:text-neutral-900 dark:hover:text-white transition-colors">Journal Calendar</a>
+        <a href="admin/blog/login.html" class="hover:text-neutral-900 dark:hover:text-white transition-colors">Author CMS</a>
+        <a href="https://instagram.com/khairilrn" target="_blank" class="hover:text-neutral-900 dark:hover:text-white transition-colors">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="assets/js/supabase-config.js"></script>
+  <script src="assets/js/supabase-client.js"></script>
+
+  <!-- Main Logic Script -->
+  <script>
+    // ─── STATIC CURATED ARTICLES (MATCHING SCREENSHOTS & EXISTING POSTS) ─────────
+    const STATIC_ARTICLES = [
+      {
+        id: 'static-1',
+        title: 'Kreativitas Sudah Murah, Sekarang yang Mahal Itu Kejelasan Berpikir',
+        slug: 'kreativitas-sudah-murah',
+        excerpt: 'Perkembangan AI membuat proses menciptakan sesuatu menjadi semakin cepat dan murah. Di era banjir konten, diferensiasi sejati terletak pada kejernihan berpikir.',
+        category: { name: 'Critical Thinking', slug: 'thoughts' },
+        cover_image: 'https://images.unsplash.com/photo-1593062096033-9a26b09da705?q=80&w=1200',
+        published_at: '2026-09-01T08:00:00Z',
+        reading_time_minutes: 7,
+        view_count: 16,
+        tags: ['Kreativitas', 'Critical Thinking', 'Future of Work'],
+        url: 'blog-post.html?slug=kreativitas-sudah-murah'
+      },
+      {
+        id: 'static-2',
+        title: 'AI influencer: Ancaman privasi data dan pemalsuan identitas di balik tren baru',
+        slug: 'ai-influencer-ancaman-privasi-data',
+        excerpt: 'Kemunculan artificial intelligence (AI) influencer menunjukkan bahwa perkembangan AI sudah menembus batas etika digital, personal branding, dan proteksi privasi.',
+        category: { name: 'Artificial Intelligence', slug: 'ai' },
+        cover_image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1200',
+        published_at: '2026-09-01T07:30:00Z',
+        reading_time_minutes: 5,
+        view_count: 5,
+        tags: ['artificial intelligence', 'AI', 'Influencer'],
+        url: 'blog-post.html?slug=ai-influencer-ancaman-privasi-data'
+      },
+      {
+        id: 'static-3',
+        title: 'Apakah Teknologi AI Berpotensi Menggeser Desainer Di Masa Depan?',
+        slug: 'apakah-teknologi-ai-berpotensi-menggeser-desainer',
+        excerpt: 'Kemajuan teknologi kecerdasan buatan AI telah menciptakan perubahan besar di berbagai industri kreatif. Apakah peran desainer grafis akan tergantikan atau berevolusi?',
+        category: { name: 'Artificial Intelligence', slug: 'ai' },
+        cover_image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200',
+        published_at: '2026-09-01T06:45:00Z',
+        reading_time_minutes: 10,
+        view_count: 3,
+        tags: ['Teknologi AI', 'AI', 'artificial intelligence'],
+        url: 'blog-post.html?slug=apakah-teknologi-ai-berpotensi-menggeser-desainer'
+      },
+      {
+        id: 'static-4',
+        title: 'Cara Membuat Logo yang Profesional dan Berdampak',
+        slug: 'cara-membuat-logo-profesional',
+        excerpt: 'Memahami fundamental desain logo, sistem grid, dan mengapa kesederhanaan adalah kunci identitas visual yang abadi dan tak lekang oleh waktu.',
+        category: { name: 'Design & Branding', slug: 'design' },
+        cover_image: 'assets/Project%20Image/logofolio.png',
+        published_at: '2026-08-20T10:00:00Z',
+        reading_time_minutes: 6,
+        view_count: 42,
+        tags: ['Logo Design', 'Branding', 'Vector'],
+        url: 'blog-logo.html'
+      },
+      {
+        id: 'static-5',
+        title: 'Membangun Identitas Visual (Branding) yang Kuat',
+        slug: 'membangun-identitas-visual-branding',
+        excerpt: 'Pentingnya konsistensi, psikologi warna, dan pedoman merek untuk menciptakan persepsi positif audiens dan loyalitas konsumen jangka panjang.',
+        category: { name: 'Design & Branding', slug: 'design' },
+        cover_image: 'https://images.unsplash.com/photo-1542744094-3a31f272c490?q=80&w=1000',
+        published_at: '2026-08-15T09:15:00Z',
+        reading_time_minutes: 8,
+        view_count: 29,
+        tags: ['Brand Identity', 'Visual System', 'Strategy'],
+        url: 'blog-branding.html'
+      },
+      {
+        id: 'static-6',
+        title: '10 AI Tools yang Wajib Saya Gunakan Sebagai Graphic Designer di 2026',
+        slug: '10-ai-tools-wajib-graphic-designer',
+        excerpt: 'Bagaimana AI membantu menghemat waktu untuk pekerjaan berulang, mulai dari ChatGPT, Midjourney, Photoshop Generative Fill, hingga Claude.',
+        category: { name: 'Artificial Intelligence', slug: 'ai' },
+        cover_image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000',
+        published_at: '2026-08-10T14:20:00Z',
+        reading_time_minutes: 8,
+        view_count: 57,
+        tags: ['AI Tools', 'Workflow', 'Productivity'],
+        url: 'blog-10-ai-tools.html'
+      },
+      {
+        id: 'static-7',
+        title: 'AI untuk Brainstorming Ide Desain: Menghasilkan Ide Cepat Tanpa Kehilangan Kreativitas',
+        slug: 'ai-untuk-brainstorming-ide-desain',
+        excerpt: 'Bagaimana AI dapat menjadi partner diskusi dan memancing sudut pandang baru dalam memecahkan masalah visual yang kompleks.',
+        category: { name: 'Artificial Intelligence', slug: 'ai' },
+        cover_image: 'assets/Project%20Image/ai_brainstorming_hero.png',
+        published_at: '2026-08-05T11:00:00Z',
+        reading_time_minutes: 6,
+        view_count: 38,
+        tags: ['Creative Process', 'Ideation', 'AI'],
+        url: 'blog-ai-brainstorming.html'
+      },
+      {
+        id: 'static-8',
+        title: 'AI untuk Desainer: Ancaman atau Alat Bantu?',
+        slug: 'ai-untuk-desainer-ancaman-atau-alat-bantu',
+        excerpt: 'Mengeksplorasi cara memanfaatkan kecerdasan buatan sebagai asisten kreatif tanpa menghilangkan sentuhan manusiawi dan keaslian ekspresi.',
+        category: { name: 'Artificial Intelligence', slug: 'ai' },
+        cover_image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1000',
+        published_at: '2026-07-28T08:30:00Z',
+        reading_time_minutes: 5,
+        view_count: 31,
+        tags: ['Ethics', 'Future', 'Designer Role'],
+        url: 'blog-ai.html'
+      }
+    ];
+
+    let allPosts = [];
+    let currentCategory = 'all';
+    let currentSearch = '';
+
+    // ─── FORMAT DATE HELPER (E.g. Sep 1, 2026) ─────────────────────────
+    function formatDate(dateStr) {
+      if (!dateStr) return 'Sep 1, 2026';
+      const d = new Date(dateStr);
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+    }
+
+    // ─── RENDER CARDS GRID ─────────────────────────────────────────────
+    function renderPosts() {
+      const grid = document.getElementById('postsGrid');
+      const emptyState = document.getElementById('emptyState');
+
+      let filtered = allPosts.filter(post => {
+        // Category filter
+        if (currentCategory !== 'all') {
+          const catSlug = (post.category && post.category.slug) ? post.category.slug.toLowerCase() : '';
+          const catName = (post.category && post.category.name) ? post.category.name.toLowerCase() : '';
+          if (currentCategory === 'design' && !catSlug.includes('design') && !catName.includes('design') && !catName.includes('branding')) return false;
+          if (currentCategory === 'ai' && !catSlug.includes('ai') && !catName.includes('ai') && !catName.includes('intelligence')) return false;
+          if (currentCategory === 'thoughts' && !catSlug.includes('thought') && !catName.includes('thinking')) return false;
+          if (currentCategory === 'journal' && post.entry_type !== 'daily_journal' && post.entry_type !== 'reflections' && !catSlug.includes('journal')) return false;
+        }
+
+        // Search query filter
+        if (currentSearch) {
+          const q = currentSearch.toLowerCase();
+          const matchTitle = (post.title || '').toLowerCase().includes(q);
+          const matchExcerpt = (post.excerpt || '').toLowerCase().includes(q);
+          const matchTags = (post.tags || []).some(t => {
+            const tagName = typeof t === 'string' ? t : (t.name || (t.tag && t.tag.name) || '');
+            return tagName.toLowerCase().includes(q);
+          });
+          if (!matchTitle && !matchExcerpt && !matchTags) return false;
+        }
+
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+
+      grid.innerHTML = filtered.map(post => {
+        const detailUrl = post.url || `blog-post.html?slug=${post.slug}`;
+        const dateFormatted = formatDate(post.happened_at || post.published_at || post.created_at);
+        const readingTime = post.reading_time_minutes || 5;
+        const views = post.view_count || (post.id === 'static-1' ? 16 : (post.id === 'static-2' ? 5 : (post.id === 'static-3' ? 3 : 12)));
+        const coverImg = post.cover_image || 'https://images.unsplash.com/photo-1593062096033-9a26b09da705?q=80&w=1200';
+
+        // Format tags pills
+        let tagList = [];
+        if (Array.isArray(post.tags)) {
+          tagList = post.tags.map(t => typeof t === 'string' ? t : (t.name || (t.tag && t.tag.name) || '')).filter(Boolean);
+        }
+        if (tagList.length === 0 && post.category && post.category.name) {
+          tagList = [post.category.name];
+        }
+
+        const tagsHtml = tagList.slice(0, 3).map(tag => `
+          <span class="text-[11px] font-medium px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/60 text-neutral-600 dark:text-neutral-300">
+            ${tag}
+          </span>
+        `).join('');
+
+        return `
+          <!-- Blog Card (Pixel-matched with Screenshot 2) -->
+          <article class="group rounded-[28px] p-5 bg-white dark:bg-[#121318] border border-neutral-200/80 dark:border-neutral-800 shadow-[0_4px_25px_rgba(0,0,0,0.03)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <!-- Card Image -->
+              <a href="${detailUrl}" class="block overflow-hidden rounded-2xl mb-4 bg-neutral-100 dark:bg-neutral-800">
+                <img src="${coverImg}" alt="${post.title}" loading="lazy" class="w-full h-52 object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500 ease-out" />
+              </a>
+
+              <!-- Metadata Row: Date • Reading Time • Views -->
+              <div class="flex items-center gap-2 text-xs font-medium text-neutral-400 dark:text-neutral-500 mb-2.5">
+                <span>${dateFormatted}</span>
+                <span>•</span>
+                <span>${readingTime} min read</span>
+                <span>•</span>
+                <span>${views} views</span>
+              </div>
+
+              <!-- Title -->
+              <h2 class="font-bold text-lg sm:text-xl text-neutral-900 dark:text-white line-clamp-2 mb-2 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                <a href="${detailUrl}">${post.title}</a>
+              </h2>
+
+              <!-- Excerpt -->
+              <p class="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 line-clamp-2 leading-relaxed mb-4">
+                ${post.excerpt || 'Baca tulisan lengkap mengenai topik ini.'}
+              </p>
+
+              <!-- Tags row -->
+              <div class="flex flex-wrap gap-1.5 mb-5">
+                ${tagsHtml}
+              </div>
+            </div>
+
+            <!-- Full-width Pill Action Button -->
+            <a href="${detailUrl}" class="w-full py-3 px-4 rounded-full bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-neutral-200 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-sm">
+              <span>Read More</span>
+              <span>→</span>
+            </a>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // ─── INITIAL DATA LOADER ───────────────────────────────────────────
+    async function loadAllPosts() {
+      allPosts = [...STATIC_ARTICLES];
+
+      // If Supabase is available, fetch live database posts
+      if (window.JournalAPI) {
+        try {
+          const res = await window.JournalAPI.getPublicEntries({ limit: 30 });
+          if (res && res.data && res.data.length > 0) {
+            // Map live database entries and merge them at the beginning
+            const livePosts = res.data.map(p => ({
+              ...p,
+              tags: p.category ? [p.category.name] : ['Journal'],
+              url: `blog-post.html?slug=${p.slug}`
+            }));
+            allPosts = [...livePosts, ...STATIC_ARTICLES];
+          }
+        } catch (e) {
+          console.warn('[Blog] Supabase fetch fallback to static posts:', e);
+        }
+      }
+
+      renderPosts();
+    }
+
+    // ─── FILTER & SEARCH LISTENERS ─────────────────────────────────────
+    document.querySelectorAll('.filter-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCategory = btn.dataset.cat;
+        renderPosts();
+      });
+    });
+
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', (e) => {
+      currentSearch = e.target.value.trim();
+      renderPosts();
+    });
+
+    document.getElementById('resetFilterBtn').addEventListener('click', () => {
+      currentCategory = 'all';
+      currentSearch = '';
+      searchInput.value = '';
+      document.querySelectorAll('.filter-pill').forEach(b => {
+        if (b.dataset.cat === 'all') b.classList.add('active');
+        else b.classList.remove('active');
+      });
+      renderPosts();
+    });
+
+    // ─── THEME TOGGLE ──────────────────────────────────────────────────
+    const darkModeBtn = document.getElementById('darkModeBtn');
+    const darkIcon = document.getElementById('darkIcon');
+
+    function updateThemeIcon() {
+      const isDark = document.documentElement.classList.contains('dark');
+      darkIcon.textContent = isDark ? '🌙' : '☀️';
+    }
+
+    darkModeBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      localStorage.setItem('darkMode', isDark);
+      updateThemeIcon();
+    });
+    updateThemeIcon();
+
+    // ─── LANGUAGE TOGGLE ───────────────────────────────────────────────
+    const langBtn = document.getElementById('langToggleBtn');
+    let currentLang = localStorage.getItem('lang') || 'en';
+    langBtn.textContent = currentLang.toUpperCase();
+
+    langBtn.addEventListener('click', () => {
+      currentLang = currentLang === 'en' ? 'id' : 'en';
+      localStorage.setItem('lang', currentLang);
+      langBtn.textContent = currentLang.toUpperCase();
+      
+      const sub = document.getElementById('blogSubtitle');
+      if (currentLang === 'id') {
+        sub.textContent = 'Catatan harian, pemikiran, dan tutorial seputar desain & pengembangan web.';
+      } else {
+        sub.textContent = 'Notes, thoughts, and tutorials on design & web development.';
+      }
+    });
+
+    // ─── MOBILE MENU TOGGLE ────────────────────────────────────────────
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Run initial load
+    window.addEventListener('DOMContentLoaded', loadAllPosts);
+  </script>
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">Jurnal — M. Khairil Rahman</title>
+  <meta name="description" id="metaDescription" content="A Journal of Becoming — Documenting life, one day at a time.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { fontFamily: { sans: ['Outfit', 'sans-serif'] } } }
+    }
+  </script>
+  <style>
+    body { background-color: #050508; }
+    .liquid-glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .page-transition {
+      opacity: 0;
+      animation: pageEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes pageEnter {
+      from { opacity: 0; transform: scale(0.98) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .prose p { margin-bottom: 1.5rem; line-height: 1.8; color: #cbd5e1; font-weight: 300; font-size: 1.05rem; }
+    .prose h1 { font-size: 2rem; font-weight: 800; color: #fff; margin-top: 2.5rem; margin-bottom: 1.25rem; line-height: 1.2; }
+    .prose h2 { font-size: 1.5rem; font-weight: 700; color: #fff; margin-top: 2.25rem; margin-bottom: 1rem; }
+    .prose h3 { font-size: 1.25rem; font-weight: 600; color: #e2e8f0; margin-top: 1.75rem; margin-bottom: 0.75rem; }
+    .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; color: #cbd5e1; }
+    .prose ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1.5rem; color: #cbd5e1; }
+    .prose li { margin-bottom: 0.5rem; line-height: 1.7; }
+    .prose blockquote {
+      border-left: 4px solid #38bdf8;
+      padding-left: 1.25rem;
+      margin: 2rem 0;
+      color: #e2e8f0;
+      font-style: italic;
+      background: rgba(56, 189, 248, 0.04);
+      padding: 1rem 1.25rem;
+      border-radius: 0 0.75rem 0.75rem 0;
+    }
+    .prose hr { border: 0; border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 2.5rem 0; }
+    .prose img { border-radius: 1rem; margin: 2rem 0 0.5rem 0; width: 100%; object-fit: cover; }
+    .prose figcaption { text-align: center; font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.5rem; }
+    .hero-img { width: 100%; max-height: 480px; object-fit: cover; border-radius: 1rem; margin-bottom: 2.5rem; }
+    
+    /* Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin: 2.5rem 0;
+    }
+    .gallery-item {
+      position: relative;
+      border-radius: 0.85rem;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 4/3;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0,0,0,0.4);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 8px 12px;
+      background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+      color: #fff;
+      font-size: 0.78rem;
+    }
+  </style>
+</head>
+
+<body class="text-slate-100 font-sans min-h-screen flex flex-col relative overflow-x-hidden">
+  <!-- Mesh background orbs -->
+  <div class="fixed inset-0 pointer-events-none z-0">
+    <div class="absolute top-[-20%] left-[10%] w-[60vw] h-[60vw] rounded-full bg-blue-600/20 blur-[130px]"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-cyan-600/10 blur-[120px]"></div>
+  </div>
+
+  <div class="relative z-10 page-transition flex-grow max-w-4xl w-full mx-auto px-6 py-12 flex flex-col justify-center">
+    <!-- Top Bar Navigation -->
+    <div class="flex items-center justify-between mb-8">
+      <div class="flex items-center gap-3">
+        <a href="journal.html"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-all backdrop-blur-md">
+          ← Semua Jurnal
+        </a>
+        <a href="index.html#blog"
+          class="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs text-slate-400 hover:text-slate-200 transition-colors">
+          Portofolio Utama
+        </a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="shareBtn" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
+          </svg>
+          <span id="shareBtnText">Bagikan</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Article Container -->
+    <div id="articleCard" class="liquid-glass-card rounded-3xl p-8 md:p-12 border border-white/10 relative overflow-hidden">
+      <!-- Loading State -->
+      <div id="loadingIndicator" class="py-20 text-center text-slate-400">
+        <div class="inline-block w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin mb-4"></div>
+        <p class="text-sm">Memuat catatan jurnal...</p>
+      </div>
+
+      <!-- Unlisted Banner (Hidden by default) -->
+      <div id="unlistedNotice" class="hidden mb-6 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-200 text-xs flex items-center gap-3">
+        <svg class="w-5 h-5 flex-shrink-0 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+        </svg>
+        <span>Ini adalah tulisan <strong>Unlisted</strong>. Tulisan ini tidak ditampilkan di halaman publik dan hanya bisa diakses via tautan khusus ini.</span>
+      </div>
+
+      <!-- Article Header -->
+      <div id="articleHeader" class="hidden">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          <span id="postCategory" class="text-xs font-bold uppercase tracking-widest text-cyan-400">
+            Journal
+          </span>
+          <span class="text-slate-600 text-xs">•</span>
+          <span id="postEntryType" class="text-xs font-medium text-slate-400 uppercase tracking-wider">
+            Reflections
+          </span>
+          <span id="postMoodBadge" class="hidden px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-purple-500/20 border border-purple-500/30 text-purple-300">
+          </span>
+        </div>
+
+        <h1 id="postTitle" class="text-3xl md:text-5xl font-extrabold text-white mt-2 mb-6 tracking-tight leading-tight">
+        </h1>
+
+        <!-- Metadata row -->
+        <div class="flex flex-wrap items-center gap-4 text-xs text-slate-400 pb-8 border-b border-white/10 mb-8">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+            <span id="postAuthor">M. Khairil Rahman</span>
+          </div>
+          <span>•</span>
+          <span id="postDate"></span>
+          <span>•</span>
+          <span id="postReadingTime">3 menit baca</span>
+        </div>
+
+        <!-- Cover Image -->
+        <img id="postCoverImage" src="" alt="Cover Image" class="hero-img hidden" />
+
+        <!-- Rich Text Prose Body -->
+        <div id="postContent" class="prose">
+        </div>
+
+        <!-- Photo Gallery (if attached) -->
+        <div id="postGallerySection" class="hidden mt-12 pt-8 border-t border-white/10">
+          <h3 class="text-xl font-bold text-white mb-2">Galeri Foto & Dokumentasi</h3>
+          <p class="text-xs text-slate-400 mb-6">Momen yang terekam pada hari ini.</p>
+          <div id="postGalleryGrid" class="gallery-grid"></div>
+        </div>
+
+        <!-- Footer Meta -->
+        <div class="mt-14 pt-8 border-t border-white/10 flex flex-wrap justify-between items-center gap-4 text-xs text-slate-400">
+          <p>Ditulis oleh Khairil — <span id="postFooterDate">A Journal of Becoming</span></p>
+          <a href="index.html#blog" class="text-cyan-400 hover:underline">← Baca tulisan lainnya</a>
+        </div>
+      </div>
+
+      <!-- Access Denied / Not Found Screen -->
+      <div id="errorScreen" class="hidden py-16 text-center">
+        <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-white mb-2" id="errorTitle">Tulisan Tidak Ditemukan</h2>
+        <p class="text-sm text-slate-400 max-w-md mx-auto mb-6" id="errorMessage">
+          Tulisan ini mungkin telah dihapus, berstatus privat, atau tautan yang Anda buka tidak valid.
+        </p>
+        <div class="flex justify-center gap-4">
+          <a href="journal.html" class="px-5 py-2.5 rounded-full bg-cyan-600 hover:bg-cyan-500 text-xs font-semibold text-white transition-all shadow-lg shadow-cyan-600/20">
+            Jelajahi Semua Jurnal
+          </a>
+          <a href="index.html#blog" class="px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/15 text-xs font-semibold text-white transition-all">
+            Kembali ke Beranda
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fullscreen Lightbox Modal -->
+  <div id="lightboxModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <button id="closeLightbox" class="absolute top-6 right-6 text-white/70 hover:text-white p-2">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+    <div class="max-w-5xl max-h-[90vh] flex flex-col items-center">
+      <img id="lightboxImg" src="" alt="Enlarged Photo" class="max-h-[80vh] max-w-full rounded-xl object-contain shadow-2xl" />
+      <p id="lightboxCaption" class="mt-4 text-sm text-slate-300 text-center"></p>
+    </div>
+  </div>
+
+  <!-- Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="assets/js/supabase-config.js"></script>
+  <script src="assets/js/supabase-client.js"></script>
+
+  <script>
+    (async function() {
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get('slug');
+      const token = params.get('token');
+      const id = params.get('id');
+
+      const loading = document.getElementById('loadingIndicator');
+      const header = document.getElementById('articleHeader');
+      const errorScreen = document.getElementById('errorScreen');
+      const unlistedNotice = document.getElementById('unlistedNotice');
+
+      if (!slug && !id) {
+        window.location.replace('journal.html');
+        return;
+      }
+
+      if (!window.JournalAPI) {
+        showError('Konfigurasi Belum Aktif', 'Koneksi ke backend jurnal belum siap.');
+        return;
+      }
+
+      try {
+        let entry = null;
+
+        // 1. Try unlisted entry first if token provided
+        if (token && slug) {
+          entry = await window.JournalAPI.getUnlistedEntry(slug, token);
+          if (entry) {
+            unlistedNotice.classList.remove('hidden');
+          }
+        }
+
+        // 2. Try public entry by slug
+        if (!entry && slug) {
+          entry = await window.JournalAPI.getEntryBySlug(slug);
+        }
+
+        // 3. If authenticated author, check if it's a private or draft entry
+        if (!entry) {
+          const user = await window.JournalAPI.getCurrentUser();
+          if (user) {
+            if (id) {
+              entry = await window.JournalAPI.getAdminEntryById(id);
+            } else if (slug) {
+              // Try finding in user's entries
+              const client = window.JournalAPI.getClient();
+              if (client) {
+                const { data } = await client.from('entries').select('*, category:categories(*), media:media(*)').eq('slug', slug).single();
+                entry = data;
+              }
+            }
+          }
+        }
+
+        if (!entry) {
+          showError('Tulisan Tidak Ditemukan', 'Tulisan tidak dapat ditemukan atau Anda tidak memiliki akses untuk membacanya.');
+          return;
+        }
+
+        // Check privacy access: if private and not author, block
+        if (entry.visibility === 'private') {
+          const user = await window.JournalAPI.getCurrentUser();
+          if (!user || user.id !== entry.user_id) {
+            showError('Tulisan Bersifat Rahasia', 'Tulisan ini dikunci secara privat oleh pemilik jurnal. Silakan login jika Anda adalah pemilik.');
+            return;
+          }
+        }
+
+        // Render article data
+        renderEntry(entry);
+      } catch (err) {
+        console.error('[Journal Detail] Error:', err);
+        showError('Terjadi Kesalahan', 'Gagal memuat isi artikel: ' + (err.message || 'Error jaringan.'));
+      }
+
+      function renderEntry(entry) {
+        loading.classList.add('hidden');
+        header.classList.remove('hidden');
+
+        document.getElementById('pageTitle').textContent = `${entry.title} — Jurnal`;
+        if (entry.excerpt) {
+          document.getElementById('metaDescription').setAttribute('content', entry.excerpt);
+        }
+
+        document.getElementById('postTitle').textContent = entry.title;
+
+        if (entry.category && entry.category.name) {
+          document.getElementById('postCategory').textContent = entry.category.name;
+        }
+
+        const entryTypeNames = {
+          daily_journal: 'Daily Journal',
+          personal_thoughts: 'Personal Thoughts',
+          daily_activities: 'Daily Activities',
+          reflections: 'Reflections',
+          experiences: 'Experiences',
+          learning_notes: 'Learning Notes',
+          memories: 'Memories'
+        };
+        document.getElementById('postEntryType').textContent = entryTypeNames[entry.entry_type] || 'Journal';
+
+        if (entry.mood) {
+          const moodBadge = document.getElementById('postMoodBadge');
+          moodBadge.textContent = 'Mood: ' + entry.mood;
+          moodBadge.classList.remove('hidden');
+        }
+
+        const dateObj = new Date(entry.happened_at || entry.published_at || entry.created_at);
+        const formattedDate = dateObj.toLocaleDateString('id-ID', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        document.getElementById('postDate').textContent = formattedDate;
+        document.getElementById('postReadingTime').textContent = `${entry.reading_time_minutes || 3} menit baca`;
+
+        // Cover image
+        if (entry.cover_image) {
+          const cover = document.getElementById('postCoverImage');
+          cover.src = entry.cover_image;
+          cover.alt = entry.title;
+          cover.classList.remove('hidden');
+        }
+
+        // Content body
+        const contentDiv = document.getElementById('postContent');
+        if (entry.content_html) {
+          contentDiv.innerHTML = entry.content_html;
+        } else if (typeof entry.content === 'string') {
+          contentDiv.innerHTML = entry.content;
+        } else if (entry.excerpt) {
+          contentDiv.innerHTML = `<p>${entry.excerpt}</p>`;
+        }
+
+        // Gallery Photos
+        if (entry.media && entry.media.length > 0) {
+          const gallerySection = document.getElementById('postGallerySection');
+          const galleryGrid = document.getElementById('postGalleryGrid');
+          gallerySection.classList.remove('hidden');
+          galleryGrid.innerHTML = entry.media.map(m => `
+            <div class="gallery-item" onclick="openLightbox('${m.url}', '${m.caption ? m.caption.replace(/'/g, "\\'") : ''}')">
+              <img src="${m.url}" alt="${m.alt_text || m.caption || 'Foto Dokumentasi'}" loading="lazy" />
+              ${m.caption ? `<div class="gallery-caption">${m.caption}</div>` : ''}
+            </div>
+          `).join('');
+        }
+
+        // Share button action
+        document.getElementById('shareBtn').addEventListener('click', () => {
+          let shareUrl = window.location.href;
+          if (entry.visibility === 'unlisted' && entry.unlisted_token && !shareUrl.includes('token=')) {
+            shareUrl += `&token=${entry.unlisted_token}`;
+          }
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(shareUrl).then(() => {
+              const textSpan = document.getElementById('shareBtnText');
+              textSpan.textContent = 'Tersalin!';
+              setTimeout(() => { textSpan.textContent = 'Bagikan'; }, 2500);
+            });
+          }
+        });
+      }
+
+      function showError(title, message) {
+        loading.classList.add('hidden');
+        header.classList.add('hidden');
+        errorScreen.classList.remove('hidden');
+        document.getElementById('errorTitle').textContent = title;
+        document.getElementById('errorMessage').textContent = message;
+      }
+    })();
+
+    // Lightbox Controls
+    function openLightbox(url, caption) {
+      const modal = document.getElementById('lightboxModal');
+      const img = document.getElementById('lightboxImg');
+      const cap = document.getElementById('lightboxCaption');
+      img.src = url;
+      cap.textContent = caption || '';
+      modal.classList.remove('hidden');
+    }
+
+    document.getElementById('closeLightbox').addEventListener('click', () => {
+      document.getElementById('lightboxModal').classList.add('hidden');
+    });
+
+    document.getElementById('lightboxModal').addEventListener('click', (e) => {
+      if (e.target.id === 'lightboxModal') {
+        document.getElementById('lightboxModal').classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+
+</html>
+

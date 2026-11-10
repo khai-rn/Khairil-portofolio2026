@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Media Library — A Journal of Becoming</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { fontFamily: { sans: ['Outfit', 'sans-serif'] } } }
+    }
+  </script>
+  <style>
+    body { background-color: #06060a; }
+    .glass-nav {
+      background: rgba(10, 10, 15, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.25s ease;
+    }
+    .glass-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    input, select, textarea {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #38bdf8;
+    }
+    select option {
+      background: #0d0d14;
+      color: #ffffff;
+    }
+  </style>
+</head>
+
+<body class="text-slate-100 font-sans min-h-screen flex flex-col bg-[#06060a]">
+  <!-- Mesh Orbs -->
+  <div class="fixed inset-0 pointer-events-none z-0">
+    <div class="absolute top-[-10%] left-[5%] w-[45vw] h-[45vw] rounded-full bg-blue-600/10 blur-[140px]"></div>
+    <div class="absolute bottom-[-10%] right-[10%] w-[40vw] h-[40vw] rounded-full bg-cyan-600/10 blur-[130px]"></div>
+  </div>
+
+  <!-- Top Navigation -->
+  <nav class="glass-nav sticky top-0 z-40 px-6 py-3.5">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-1.5">
+            <img src="../../assets/icon apps/kaivisual New Logo-07.png" alt="Logo" class="w-full h-full object-contain" />
+          </div>
+          <div>
+            <h1 class="text-sm font-bold text-white tracking-tight">A Journal of Becoming</h1>
+            <p class="text-[11px] text-slate-400">Media Library &amp; Cloud Storage</p>
+          </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="hidden md:flex items-center gap-1 bg-white/5 p-1 rounded-xl border border-white/10 text-xs">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-colors">
+            Daftar Jurnal
+          </a>
+          <a href="editor.html" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-colors">
+            Tulis Baru
+          </a>
+          <a href="media.html" class="px-3 py-1.5 rounded-lg bg-cyan-600 text-white font-semibold transition-colors">
+            Media Library
+          </a>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="../../journal.html" target="_blank"
+          class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-slate-300 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+          </svg>
+          Lihat Web Jurnal
+        </a>
+
+        <button id="logoutBtn"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-xs text-red-300 transition-colors">
+          Keluar
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Container -->
+  <main class="relative z-10 max-w-7xl w-full mx-auto px-6 py-8 flex-grow">
+    <!-- Header row with title & stats -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+      <div>
+        <h2 class="text-2xl font-bold text-white tracking-tight">Galeri Foto &amp; Media Storage</h2>
+        <p class="text-xs text-slate-400 mt-1">
+          Penyimpanan foto terpusat di Supabase Storage dengan optimasi otomatis WebP.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-4 text-xs">
+        <div class="px-3.5 py-1.5 rounded-xl bg-white/5 border border-white/10">
+          <span class="text-slate-400">Total Foto: </span>
+          <span id="statTotalMedia" class="font-bold text-white">0</span>
+        </div>
+        <div class="px-3.5 py-1.5 rounded-xl bg-white/5 border border-white/10">
+          <span class="text-slate-400">Total Ukuran: </span>
+          <span id="statTotalSize" class="font-bold text-cyan-400">0 MB</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drag & Drop Upload Zone -->
+    <div class="glass-card rounded-2xl p-6 mb-8">
+      <div id="dropZone"
+        class="border-2 border-dashed border-white/15 hover:border-cyan-400/60 rounded-2xl p-8 text-center cursor-pointer transition-all bg-white/[0.01] hover:bg-white/[0.03]">
+        <svg class="w-10 h-10 mx-auto text-slate-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+        <p class="text-sm font-semibold text-white mb-1">Tarik dan lepas foto Anda di sini untuk mengunggah</p>
+        <p class="text-xs text-slate-400">atau klik untuk memilih beberapa foto sekaligus (JPEG, PNG, WebP hingga 15MB)</p>
+        <p class="text-[11px] text-cyan-400/90 mt-2 font-mono">⚡ Otomatis dioptimalkan &amp; dikonversi ke WebP untuk performa maksimal</p>
+        <input type="file" id="fileInput" accept="image/*" multiple class="hidden" />
+      </div>
+
+      <!-- Upload Options Toolbar -->
+      <div class="mt-4 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs">
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400">Target Foto:</span>
+            <select id="uploadTypeSelect" class="px-3 py-1 rounded-lg text-xs font-medium">
+              <option value="gallery">Galeri Mandiri (Portfolio / Photography)</option>
+              <option value="journal">Dokumentasi Jurnal</option>
+            </select>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400">Privasi:</span>
+            <select id="uploadPrivacySelect" class="px-3 py-1 rounded-lg text-xs font-medium">
+              <option value="false">🌍 Publik (Dapat dilihat umum)</option>
+              <option value="true">🔒 Privat (Hanya akun pemilik)</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="uploadStatus" class="text-xs text-slate-400 font-medium hidden">
+          <!-- Dynamic progress info -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters & Search Toolbar -->
+    <div class="glass-card rounded-2xl p-4 mb-6 flex flex-wrap gap-3 items-center justify-between">
+      <div class="flex flex-wrap gap-2.5 items-center flex-1 min-w-[280px]">
+        <!-- Search input -->
+        <div class="relative flex-1 min-w-[220px] max-w-sm">
+          <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <input type="text" id="searchInput" placeholder="Cari keterangan, file, atau jurnal..."
+            class="w-full pl-9 pr-3 py-1.5 rounded-xl text-xs" />
+        </div>
+
+        <!-- Content Type Filter -->
+        <select id="filterContentType" class="px-3 py-1.5 rounded-xl text-xs">
+          <option value="all">Semua Tipe Konten</option>
+          <option value="gallery">Galeri Mandiri</option>
+          <option value="journal">Dokumentasi Jurnal</option>
+        </select>
+
+        <!-- Privacy Filter -->
+        <select id="filterPrivacy" class="px-3 py-1.5 rounded-xl text-xs">
+          <option value="all">Semua Akses</option>
+          <option value="false">Publik</option>
+          <option value="true">Privat</option>
+        </select>
+      </div>
+
+      <div class="text-xs text-slate-400 font-medium" id="mediaCountLabel">
+        Menampilkan 0 foto
+      </div>
+    </div>
+
+    <!-- Gallery Grid Container -->
+    <div id="mediaGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <!-- Loading State -->
+      <div class="col-span-full py-20 text-center text-slate-400">
+        <div class="inline-block w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin mb-3"></div>
+        <p class="text-xs">Memuat galeri media...</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Image Detail & Inspector Modal -->
+  <div id="inspectorModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="glass-card rounded-3xl p-6 md:p-8 max-w-2xl w-full border border-white/15 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
+        <h3 class="text-base font-bold text-white">Detail &amp; Pengaturan Foto</h3>
+        <button id="closeInspectorBtn" class="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white">
+          ✕
+        </button>
+      </div>
+
+      <div class="space-y-5">
+        <!-- Preview image -->
+        <div class="relative w-full aspect-video rounded-2xl overflow-hidden bg-black/50 border border-white/10 flex items-center justify-center">
+          <img id="inspPreviewImg" src="" alt="Preview" class="max-w-full max-h-full object-contain" />
+        </div>
+
+        <!-- Technical Metadata -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs bg-white/[0.02] p-3.5 rounded-xl border border-white/5">
+          <div>
+            <span class="text-slate-500 block text-[10px] uppercase">Resolusi</span>
+            <span id="inspDims" class="font-semibold text-slate-200">1920 × 1080</span>
+          </div>
+          <div>
+            <span class="text-slate-500 block text-[10px] uppercase">Ukuran</span>
+            <span id="inspSize" class="font-semibold text-cyan-400">240 KB</span>
+          </div>
+          <div>
+            <span class="text-slate-500 block text-[10px] uppercase">Format</span>
+            <span id="inspFormat" class="font-semibold text-slate-200">image/webp</span>
+          </div>
+          <div>
+            <span class="text-slate-500 block text-[10px] uppercase">Akses</span>
+            <span id="inspAccess" class="font-semibold text-emerald-400">Publik</span>
+          </div>
+        </div>
+
+        <!-- Usage in Journal -->
+        <div class="text-xs">
+          <span class="text-slate-400 block mb-1">Penggunaan di Jurnal:</span>
+          <div id="inspUsageBox" class="p-3 rounded-xl bg-white/5 border border-white/10 text-slate-300">
+            <!-- Dynamic journal link or independent -->
+          </div>
+        </div>
+
+        <!-- Editable Metadata Form -->
+        <div class="space-y-3 text-xs">
+          <div>
+            <label class="block text-slate-400 mb-1">Keterangan / Judul Foto (Caption)</label>
+            <input type="text" id="inspCaptionInput" class="w-full px-3.5 py-2 rounded-xl text-xs" />
+          </div>
+
+          <div>
+            <label class="block text-slate-400 mb-1">Alt Text (Aksesibilitas)</label>
+            <input type="text" id="inspAltInput" class="w-full px-3.5 py-2 rounded-xl text-xs" />
+          </div>
+
+          <div>
+            <label class="block text-slate-400 mb-1">Storage Path</label>
+            <input type="text" id="inspPathInput" readonly class="w-full px-3.5 py-1.5 rounded-xl text-[11px] font-mono text-slate-500 bg-white/[0.02]" />
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-between pt-4 border-t border-white/10">
+          <button id="deleteMediaBtn" type="button"
+            class="px-4 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-300 border border-red-500/20 text-xs font-semibold transition-colors">
+            Hapus Foto Ini
+          </button>
+
+          <div class="flex items-center gap-2">
+            <button id="copyUrlBtn" type="button"
+              class="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-semibold transition-colors">
+              Salin URL
+            </button>
+            <button id="saveMetaBtn" type="button"
+              class="px-5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold shadow-lg shadow-cyan-600/20 transition-all">
+              Simpan Perubahan
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../../assets/js/supabase-config.js"></script>
+  <script src="../../assets/js/image-optimizer.js"></script>
+  <script src="../../assets/js/supabase-client.js"></script>
+
+  <script>
+    (async function() {
+      // Auth Guard
+      if (!window.JournalAPI) {
+        window.location.href = 'login.html';
+        return;
+      }
+      const user = await window.JournalAPI.getCurrentUser();
+      if (!user) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      document.getElementById('logoutBtn').addEventListener('click', async () => {
+        await window.JournalAPI.signOut();
+        window.location.href = 'login.html';
+      });
+
+      let mediaItems = [];
+      let activeMedia = null;
+
+      const mediaGrid = document.getElementById('mediaGrid');
+      const searchInput = document.getElementById('searchInput');
+      const filterContentType = document.getElementById('filterContentType');
+      const filterPrivacy = document.getElementById('filterPrivacy');
+      const mediaCountLabel = document.getElementById('mediaCountLabel');
+      const statTotalMedia = document.getElementById('statTotalMedia');
+      const statTotalSize = document.getElementById('statTotalSize');
+
+      // Dropzone & File Upload
+      const dropZone = document.getElementById('dropZone');
+      const fileInput = document.getElementById('fileInput');
+      const uploadTypeSelect = document.getElementById('uploadTypeSelect');
+      const uploadPrivacySelect = document.getElementById('uploadPrivacySelect');
+      const uploadStatus = document.getElementById('uploadStatus');
+
+      dropZone.addEventListener('click', () => fileInput.click());
+      fileInput.addEventListener('change', async (e) => {
+        const files = Array.from(e.target.files);
+        if (files.length > 0) handleBatchUpload(files);
+      });
+
+      dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('border-cyan-400');
+      });
+      dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('border-cyan-400');
+      });
+      dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('border-cyan-400');
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+          handleBatchUpload(Array.from(e.dataTransfer.files));
+        }
+      });
+
+      async function handleBatchUpload(files) {
+        uploadStatus.classList.remove('hidden');
+        const contentType = uploadTypeSelect.value;
+        const isPrivate = uploadPrivacySelect.value === 'true';
+
+        let successCount = 0;
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          uploadStatus.innerHTML = `<span class="text-cyan-400">Mengoptimalkan &amp; mengunggah (${i + 1}/${files.length}): ${escapeHtml(file.name)}...</span>`;
+
+          try {
+            await window.JournalAPI.uploadPhoto({
+              file: file,
+              contentType: contentType,
+              isPrivate: isPrivate,
+              caption: file.name.replace(/\.[^/.]+$/, "")
+            });
+            successCount++;
+          } catch (err) {
+            console.error('[Upload] Error:', err);
+            alert(`Gagal mengunggah ${file.name}: ${err.message}`);
+          }
+        }
+
+        uploadStatus.innerHTML = `<span class="text-emerald-400 font-semibold">✓ Berhasil mengunggah ${successCount} foto ke cloud storage!</span>`;
+        setTimeout(() => uploadStatus.classList.add('hidden'), 4000);
+        fileInput.value = '';
+        loadMedia();
+      }
+
+      // Load Media
+      async function loadMedia() {
+        mediaGrid.innerHTML = `
+          <div class="col-span-full py-20 text-center text-slate-400">
+            <div class="inline-block w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin mb-3"></div>
+            <p class="text-xs">Memuat galeri media...</p>
+          </div>
+        `;
+
+        try {
+          const { data, count } = await window.JournalAPI.getMediaList({
+            contentType: filterContentType.value,
+            isPrivate: filterPrivacy.value,
+            searchQuery: searchInput.value.trim(),
+            limit: 100
+          });
+
+          mediaItems = data || [];
+          mediaCountLabel.textContent = `Menampilkan ${mediaItems.length} foto`;
+          statTotalMedia.textContent = count || mediaItems.length;
+
+          // Compute total storage size
+          const totalBytes = mediaItems.reduce((acc, m) => acc + (m.file_size || 0), 0);
+          statTotalSize.textContent = `${(totalBytes / (1024 * 1024)).toFixed(1)} MB`;
+
+          renderGrid(mediaItems);
+        } catch (err) {
+          console.error('[Media] Error:', err);
+          mediaGrid.innerHTML = `
+            <div class="col-span-full py-16 text-center text-red-400">
+              <p class="text-sm font-semibold mb-1">Gagal memuat media</p>
+              <p class="text-xs text-slate-500">${err.message}</p>
+            </div>
+          `;
+        }
+      }
+
+      function renderGrid(items) {
+        if (items.length === 0) {
+          mediaGrid.innerHTML = `
+            <div class="col-span-full py-20 text-center text-slate-400">
+              <svg class="w-12 h-12 mx-auto mb-3 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              <p class="text-sm font-semibold text-slate-300">Belum ada foto dalam kategori ini</p>
+              <p class="text-xs text-slate-500 mt-1">Gunakan kotak di atas untuk mengunggah foto baru.</p>
+            </div>
+          `;
+          return;
+        }
+
+        mediaGrid.innerHTML = items.map((m, idx) => {
+          const displayUrl = m.thumbnail_url || m.url;
+          const sizeKb = m.file_size ? `${Math.round(m.file_size / 1024)} KB` : '';
+          const hasEntry = !!m.entry;
+
+          return `
+            <div onclick="inspectMedia(${idx})"
+              class="glass-card rounded-2xl overflow-hidden cursor-pointer group flex flex-col relative">
+              <div class="relative w-full aspect-square overflow-hidden bg-black/40">
+                <img src="${displayUrl}" alt="${escapeHtml(m.alt_text || m.caption || '')}" loading="lazy"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+
+                <!-- Badges -->
+                <div class="absolute top-2 left-2 flex flex-col gap-1 pointer-events-none">
+                  <span class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider ${m.is_private ? 'bg-purple-500/80 text-white' : 'bg-emerald-500/80 text-white'} backdrop-blur-sm">
+                    ${m.is_private ? 'Privat' : 'Publik'}
+                  </span>
+                </div>
+
+                ${m.is_cover ? `
+                  <div class="absolute top-2 right-2 pointer-events-none">
+                    <span class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-amber-500/80 text-white backdrop-blur-sm">
+                      Cover
+                    </span>
+                  </div>
+                ` : ''}
+              </div>
+
+              <div class="p-3 text-xs flex flex-col flex-grow">
+                <p class="font-semibold text-white line-clamp-1 group-hover:text-cyan-300 transition-colors">
+                  ${escapeHtml(m.caption || 'Tanpa Keterangan')}
+                </p>
+                <div class="flex items-center justify-between text-[10px] text-slate-400 mt-1">
+                  <span>${m.width ? `${m.width}×${m.height}` : 'WebP'}</span>
+                  <span>${sizeKb}</span>
+                </div>
+                ${hasEntry ? `
+                  <p class="text-[10px] text-cyan-400 line-clamp-1 mt-1.5 flex items-center gap-1">
+                    <span>📖</span> ${escapeHtml(m.entry.title)}
+                  </p>
+                ` : `
+                  <p class="text-[10px] text-slate-500 mt-1.5">
+                    🖼️ Galeri Mandiri
+                  </p>
+                `}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Inspector Modal
+      const modal = document.getElementById('inspectorModal');
+      window.inspectMedia = function(idx) {
+        activeMedia = mediaItems[idx];
+        if (!activeMedia) return;
+
+        document.getElementById('inspPreviewImg').src = activeMedia.url;
+        document.getElementById('inspDims').textContent = activeMedia.width ? `${activeMedia.width} × ${activeMedia.height}` : '—';
+        document.getElementById('inspSize').textContent = activeMedia.file_size ? `${Math.round(activeMedia.file_size / 1024)} KB` : '—';
+        document.getElementById('inspFormat').textContent = activeMedia.mime_type || 'image/webp';
+        document.getElementById('inspAccess').textContent = activeMedia.is_private ? 'Privat (Signed URL)' : 'Publik (Global CDN)';
+        document.getElementById('inspAccess').className = activeMedia.is_private ? 'font-semibold text-purple-400' : 'font-semibold text-emerald-400';
+
+        const usageBox = document.getElementById('inspUsageBox');
+        if (activeMedia.entry) {
+          usageBox.innerHTML = `
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="font-semibold text-white">${escapeHtml(activeMedia.entry.title)}</p>
+                <span class="text-[11px] text-slate-400">Status: ${activeMedia.entry.status} &bull; Akses: ${activeMedia.entry.visibility}</span>
+              </div>
+              <a href="editor.html?id=${activeMedia.entry.id}" target="_blank" class="px-3 py-1 rounded-lg bg-cyan-600/30 text-cyan-200 hover:bg-cyan-600/50 text-[11px] font-semibold">
+                Buka Jurnal ↗
+              </a>
+            </div>
+          `;
+        } else {
+          usageBox.innerHTML = `<span class="text-slate-400">Foto Mandiri / Belum terhubung ke jurnal tertentu.</span>`;
+        }
+
+        document.getElementById('inspCaptionInput').value = activeMedia.caption || '';
+        document.getElementById('inspAltInput').value = activeMedia.alt_text || '';
+        document.getElementById('inspPathInput').value = activeMedia.file_path || '';
+
+        modal.classList.remove('hidden');
+      };
+
+      document.getElementById('closeInspectorBtn').addEventListener('click', () => {
+        modal.classList.add('hidden');
+        activeMedia = null;
+      });
+
+      // Copy URL Button
+      document.getElementById('copyUrlBtn').addEventListener('click', () => {
+        if (!activeMedia) return;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(activeMedia.url).then(() => {
+            const btn = document.getElementById('copyUrlBtn');
+            btn.textContent = 'URL Tersalin!';
+            setTimeout(() => { btn.textContent = 'Salin URL'; }, 2000);
+          });
+        }
+      });
+
+      // Save Metadata Changes
+      document.getElementById('saveMetaBtn').addEventListener('click', async () => {
+        if (!activeMedia) return;
+        const newCaption = document.getElementById('inspCaptionInput').value.trim();
+        const newAlt = document.getElementById('inspAltInput').value.trim();
+
+        try {
+          await window.JournalAPI.updateMediaMetadata(activeMedia.id, {
+            caption: newCaption,
+            alt_text: newAlt
+          });
+          modal.classList.add('hidden');
+          loadMedia();
+        } catch (err) {
+          alert('Gagal menyimpan metadata: ' + err.message);
+        }
+      });
+
+      // Delete Media Button
+      document.getElementById('deleteMediaBtn').addEventListener('click', async () => {
+        if (!activeMedia) return;
+        if (confirm('Apakah Anda yakin ingin menghapus foto ini secara permanen dari Supabase Storage dan database?')) {
+          try {
+            await window.JournalAPI.deleteMedia(activeMedia.id);
+            modal.classList.add('hidden');
+            loadMedia();
+          } catch (err) {
+            alert('Gagal menghapus foto: ' + err.message);
+          }
+        }
+      });
+
+      // Filter events
+      let searchTimer;
+      searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(loadMedia, 300);
+      });
+      filterContentType.addEventListener('change', loadMedia);
+      filterPrivacy.addEventListener('change', loadMedia);
+
+      function escapeHtml(text) {
+        if (!text) return '';
+        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+
+      loadMedia();
+    })();
+  </script>
+</body>
+
+</html>
+

@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editor Jurnal — A Journal of Becoming</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            serif: ['Newsreader', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #06060a; }
+    .glass-header {
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.025);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    input, select, textarea {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #38bdf8;
+    }
+    select option {
+      background: #0d0d14;
+      color: #ffffff;
+    }
+
+    /* Custom Quill Editor Dark Theme */
+    .ql-toolbar.ql-snow {
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border-top-left-radius: 1rem;
+      border-top-right-radius: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px !important;
+    }
+    .ql-toolbar .ql-stroke {
+      stroke: #94a3b8 !important;
+    }
+    .ql-toolbar .ql-fill {
+      fill: #94a3b8 !important;
+    }
+    .ql-toolbar button:hover .ql-stroke,
+    .ql-toolbar .ql-active .ql-stroke {
+      stroke: #38bdf8 !important;
+    }
+    .ql-toolbar button:hover .ql-fill,
+    .ql-toolbar .ql-active .ql-fill {
+      fill: #38bdf8 !important;
+    }
+    .ql-toolbar .ql-picker {
+      color: #94a3b8 !important;
+    }
+    .ql-container.ql-snow {
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border-top: none !important;
+      border-bottom-left-radius: 1rem;
+      border-bottom-right-radius: 1rem;
+      background: rgba(255, 255, 255, 0.015);
+      min-height: 480px;
+      font-size: 1.05rem;
+      color: #e2e8f0;
+      line-height: 1.8;
+    }
+    .ql-editor {
+      padding: 24px !important;
+      min-height: 480px;
+    }
+    .ql-editor.ql-blank::before {
+      color: #64748b !important;
+      font-style: italic;
+    }
+    .ql-editor h1, .ql-editor h2, .ql-editor h3 {
+      color: #ffffff;
+      font-weight: 700;
+    }
+    .ql-editor blockquote {
+      border-left: 4px solid #38bdf8 !important;
+      color: #cbd5e1 !important;
+      font-style: italic;
+      background: rgba(56, 189, 248, 0.05);
+      padding: 12px 16px !important;
+      border-radius: 0 8px 8px 0;
+    }
+    .ql-editor hr {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+
+<body class="text-slate-100 font-sans min-h-screen flex flex-col bg-[#06060a]">
+  <!-- Top Navigation Header -->
+  <header class="glass-header sticky top-0 z-40 px-6 py-3">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 transition-colors" title="Kembali ke Dashboard">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+        </a>
+        <div>
+          <h1 id="editorHeading" class="text-sm font-bold text-white tracking-tight">Tulis Jurnal Baru</h1>
+          <p id="saveStatus" class="text-[11px] text-slate-400">Draf belum disimpan</p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2.5">
+        <a href="media.html" target="_blank"
+          class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-slate-300 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          Media Library
+        </a>
+
+        <button id="previewBtn" type="button"
+          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-slate-300 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+          </svg>
+          Pratinjau
+        </button>
+
+        <button id="saveDraftBtn" type="button"
+          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-xs font-semibold text-white transition-colors">
+          Simpan Draf
+        </button>
+
+        <button id="publishBtn" type="button"
+          class="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-xs font-semibold text-white shadow-lg shadow-cyan-600/20 transition-all">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          Publikasikan
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Editor Container (Two columns layout: Content & Sidebar) -->
+  <main class="max-w-7xl w-full mx-auto px-6 py-8 flex-grow">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Left: Article Content & Rich Text Editor (8 cols) -->
+      <div class="lg:col-span-8 space-y-6">
+        <!-- Title Input -->
+        <div>
+          <input type="text" id="titleInput" required placeholder="Judul Jurnal atau Tulisan..."
+            class="w-full px-5 py-3.5 rounded-2xl text-2xl md:text-3xl font-extrabold text-white placeholder-slate-600 bg-white/[0.03] border border-white/10 focus:border-cyan-400" />
+        </div>
+
+        <!-- Slug & Excerpt -->
+        <div class="glass-panel rounded-2xl p-4 space-y-3">
+          <div class="flex items-center gap-2 text-xs text-slate-400">
+            <span class="font-mono text-cyan-400">URL Slug:</span>
+            <span class="font-mono text-slate-500">/blog-post.html?slug=</span>
+            <input type="text" id="slugInput" placeholder="judul-jurnal-hari-ini"
+              class="flex-1 px-3 py-1 rounded-lg text-xs font-mono" />
+          </div>
+
+          <div>
+            <textarea id="excerptInput" rows="2" placeholder="Tuliskan intisari atau kutipan singkat (excerpt)..."
+              class="w-full px-4 py-2.5 rounded-xl text-xs placeholder-slate-500 resize-none"></textarea>
+          </div>
+        </div>
+
+        <!-- Personal Journal Prompts Toolbar -->
+        <div class="glass-panel rounded-2xl p-4">
+          <div class="flex items-center justify-between mb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="text-amber-400 text-sm">💡</span>
+              <span class="text-xs font-semibold text-white">Panduan Refleksi Jurnal (Klik untuk Menyisipkan)</span>
+            </div>
+            <span class="text-[11px] text-slate-500">Opsional</span>
+          </div>
+          <div class="flex flex-wrap gap-2" id="promptPills">
+            <button type="button" data-prompt="Apa yang terjadi hari ini?"
+              class="prompt-btn text-[11px] px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition-colors">
+              + Apa yang terjadi hari ini?
+            </button>
+            <button type="button" data-prompt="Apa yang saya lakukan?"
+              class="prompt-btn text-[11px] px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition-colors">
+              + Apa yang saya lakukan?
+            </button>
+            <button type="button" data-prompt="Bagaimana perasaan saya?"
+              class="prompt-btn text-[11px] px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition-colors">
+              + Bagaimana perasaan saya?
+            </button>
+            <button type="button" data-prompt="Apa yang saya pelajari?"
+              class="prompt-btn text-[11px] px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition-colors">
+              + Apa yang saya pelajari?
+            </button>
+            <button type="button" data-prompt="Apa yang ingin saya ingat?"
+              class="prompt-btn text-[11px] px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition-colors">
+              + Apa yang ingin saya ingat?
+            </button>
+          </div>
+        </div>
+
+        <!-- Quill Rich Text Editor Container -->
+        <div>
+          <div id="editorToolbar">
+            <span class="ql-formats">
+              <select class="ql-header">
+                <option value="1">Heading 1</option>
+                <option value="2">Heading 2</option>
+                <option value="3">Heading 3</option>
+                <option selected>Paragraph</option>
+              </select>
+            </span>
+            <span class="ql-formats">
+              <button class="ql-bold"></button>
+              <button class="ql-italic"></button>
+              <button class="ql-underline"></button>
+              <button class="ql-strike"></button>
+            </span>
+            <span class="ql-formats">
+              <button class="ql-list" value="ordered"></button>
+              <button class="ql-list" value="bullet"></button>
+            </span>
+            <span class="ql-formats">
+              <button class="ql-blockquote"></button>
+              <button class="ql-link"></button>
+              <button class="ql-image"></button>
+              <button class="ql-clean"></button>
+            </span>
+          </div>
+          <div id="editorCanvas"></div>
+        </div>
+      </div>
+
+      <!-- Right: Sidebar Metadata & Media Manager (4 cols) -->
+      <div class="lg:col-span-4 space-y-6">
+        <!-- Visibility & Status Card -->
+        <div class="glass-panel rounded-2xl p-5 space-y-4">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Privasi & Publikasi</h3>
+
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1.5">Tingkat Privasi</label>
+            <select id="visibilitySelect" class="w-full px-3 py-2 rounded-xl text-xs font-medium">
+              <option value="public">🌍 PUBLIK — Dapat dibaca oleh semua pengunjung</option>
+              <option value="unlisted">🔗 UNLISTED — Hanya via tautan khusus (tidak diindeks)</option>
+              <option value="private">🔒 PRIVAT — Hanya pemilik jurnal yang dapat melihat</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1.5">Tipe Konten</label>
+            <select id="entryTypeSelect" class="w-full px-3 py-2 rounded-xl text-xs">
+              <option value="daily_journal">Daily Journal (Catatan Harian)</option>
+              <option value="personal_thoughts">Personal Thoughts (Pemikiran Pribadi)</option>
+              <option value="daily_activities">Daily Activities (Aktivitas Harian)</option>
+              <option value="reflections">Personal Reflections (Refleksi Hidup)</option>
+              <option value="experiences">Experiences (Pengalaman & Perjalanan)</option>
+              <option value="learning_notes">Learning Notes (Catatan Belajar)</option>
+              <option value="memories">Memories (Kenangan & Arsip)</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1.5">Kategori</label>
+              <select id="categorySelect" class="w-full px-3 py-2 rounded-xl text-xs">
+                <option value="">Pilih Kategori...</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1.5">Mood / Suasana</label>
+              <input type="text" id="moodInput" placeholder="Tenang, Syukur..." class="w-full px-3 py-2 rounded-xl text-xs" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1.5">Journal Date (Tanggal Jurnal)</label>
+              <input type="date" id="happenedAtInput" class="w-full px-3 py-1.5 rounded-xl text-xs" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1.5">Estimasi Waktu Baca</label>
+              <input type="number" id="readingTimeInput" min="1" max="60" value="3" class="w-full px-3 py-1.5 rounded-xl text-xs" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Cover Image Card -->
+        <div class="glass-panel rounded-2xl p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Cover Artikel</h3>
+            <div class="flex items-center gap-2.5">
+              <button id="chooseCoverFromLibraryBtn" type="button" class="text-[11px] text-cyan-400 hover:underline">Dari Library</button>
+              <button id="removeCoverBtn" type="button" class="text-[11px] text-red-400 hover:underline hidden">Hapus</button>
+            </div>
+          </div>
+
+          <div id="coverDropzone"
+            class="border-2 border-dashed border-white/15 hover:border-cyan-400/50 rounded-xl p-4 text-center cursor-pointer transition-colors relative overflow-hidden min-h-[140px] flex flex-col items-center justify-center">
+            <img id="coverPreview" src="" alt="Cover Preview" class="absolute inset-0 w-full h-full object-cover hidden rounded-lg" />
+            <div id="coverPlaceholder" class="space-y-1">
+              <svg class="w-8 h-8 mx-auto text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              <p class="text-xs text-slate-400 font-medium">Tarik & lepas foto cover di sini</p>
+              <p class="text-[10px] text-slate-500">atau klik untuk memilih file</p>
+            </div>
+            <input type="file" id="coverFileInput" accept="image/*" class="hidden" />
+          </div>
+          <input type="url" id="coverUrlInput" placeholder="atau tempel URL gambar..."
+            class="w-full px-3 py-2 rounded-xl text-xs placeholder-slate-500" />
+        </div>
+
+        <!-- Multi-Photo Gallery Card -->
+        <div class="glass-panel rounded-2xl p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Galeri Foto Pendukung</h3>
+            <span id="galleryCount" class="text-[11px] text-slate-500">0 Foto</span>
+          </div>
+
+          <p class="text-[11px] text-slate-400">Tambahkan dokumentasi foto untuk artikel ini.</p>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div id="galleryUploadBtn"
+              class="border border-dashed border-white/15 hover:border-cyan-400/50 rounded-xl py-2.5 px-3 text-center cursor-pointer transition-colors text-xs text-slate-400">
+              + Unggah Foto Baru
+            </div>
+            <button type="button" id="chooseGalleryFromLibraryBtn"
+              class="border border-white/10 hover:border-cyan-400/50 rounded-xl py-2.5 px-3 text-center transition-colors text-xs text-cyan-300 bg-white/5 hover:bg-white/10">
+              🖼️ Dari Library
+            </button>
+          </div>
+          <input type="file" id="galleryFileInput" accept="image/*" multiple class="hidden" />
+
+          <!-- Gallery List -->
+          <div id="galleryItemsContainer" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
+        </div>
+
+        <!-- Danger Zone (Delete) -->
+        <div id="deleteZone" class="hidden pt-4 border-t border-white/10">
+          <button type="button" id="deleteEntryBtn"
+            class="w-full py-2.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-xs text-red-300 font-semibold transition-colors">
+            Hapus Jurnal Ini
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Live Preview Modal -->
+  <div id="previewModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex flex-col p-4 md:p-6">
+    <!-- Header preview controls -->
+    <div class="flex items-center justify-between pb-4 border-b border-white/10">
+      <div class="flex items-center gap-3">
+        <h3 class="text-sm font-bold text-white">Pratinjau Artikel</h3>
+        <div class="flex bg-white/5 rounded-lg p-0.5 border border-white/10 text-xs">
+          <button type="button" id="previewDesktopBtn" class="px-3 py-1 rounded-md bg-cyan-600 text-white font-semibold">
+            Desktop
+          </button>
+          <button type="button" id="previewMobileBtn" class="px-3 py-1 rounded-md text-slate-400 hover:text-white">
+            Mobile (390px)
+          </button>
+        </div>
+      </div>
+
+      <button type="button" id="closePreviewBtn" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-white">
+        ✕
+      </button>
+    </div>
+
+    <!-- Preview Canvas -->
+    <div class="flex-grow overflow-y-auto py-6 flex justify-center">
+      <div id="previewContainer" class="w-full max-w-4xl bg-[#050508] border border-white/10 rounded-3xl p-8 md:p-12 transition-all">
+        <span id="prevCategory" class="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-2 block">Journal</span>
+        <h1 id="prevTitle" class="text-3xl md:text-5xl font-extrabold text-white mt-2 mb-6">Judul Artikel</h1>
+        <div class="text-xs text-slate-400 pb-6 mb-6 border-b border-white/10 flex gap-3">
+          <span>Oleh Khairil</span>
+          <span>•</span>
+          <span id="prevDate">Hari ini</span>
+        </div>
+        <img id="prevCover" src="" alt="Cover" class="w-full max-h-[400px] object-cover rounded-2xl mb-8 hidden" />
+        <div id="prevBody" class="prose text-slate-200"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Media Picker Modal (to reuse existing images) -->
+  <div id="mediaPickerModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="glass-panel rounded-3xl p-6 md:p-8 max-w-3xl w-full border border-white/15 max-h-[85vh] flex flex-col">
+      <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
+        <div>
+          <h3 class="text-base font-bold text-white">Pilih dari Media Library</h3>
+          <p class="text-xs text-slate-400">Pilih foto yang sudah pernah diunggah untuk digunakan kembali.</p>
+        </div>
+        <button id="closePickerBtn" type="button" class="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <div class="overflow-y-auto flex-grow pr-1">
+        <div id="pickerGrid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+  <script src="../../assets/js/supabase-config.js"></script>
+  <script src="../../assets/js/image-optimizer.js"></script>
+  <script src="../../assets/js/supabase-client.js"></script>
+
+  <script>
+    (async function() {
+      // Auth Guard
+      if (!window.JournalAPI) {
+        window.location.href = 'login.html';
+        return;
+      }
+      const currentUser = await window.JournalAPI.getCurrentUser();
+      if (!currentUser) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      // Initialize Quill
+      const quill = new Quill('#editorCanvas', {
+        modules: {
+          toolbar: '#editorToolbar'
+        },
+        theme: 'snow',
+        placeholder: 'Mulai tuliskan cerita, pemikiran, atau pengalaman Anda di sini...'
+      });
+
+      // Handle query param for editing
+      const urlParams = new URLSearchParams(window.location.search);
+      const entryId = urlParams.get('id');
+
+      let currentEntry = null;
+      let galleryPhotos = []; // array of { url, file_path, caption }
+
+      // Elements
+      const titleInput = document.getElementById('titleInput');
+      const slugInput = document.getElementById('slugInput');
+      const excerptInput = document.getElementById('excerptInput');
+      const visibilitySelect = document.getElementById('visibilitySelect');
+      const entryTypeSelect = document.getElementById('entryTypeSelect');
+      const categorySelect = document.getElementById('categorySelect');
+      const moodInput = document.getElementById('moodInput');
+      const happenedAtInput = document.getElementById('happenedAtInput');
+      const readingTimeInput = document.getElementById('readingTimeInput');
+      const coverUrlInput = document.getElementById('coverUrlInput');
+      const coverPreview = document.getElementById('coverPreview');
+      const coverPlaceholder = document.getElementById('coverPlaceholder');
+      const removeCoverBtn = document.getElementById('removeCoverBtn');
+      const coverFileInput = document.getElementById('coverFileInput');
+      const coverDropzone = document.getElementById('coverDropzone');
+      const saveDraftBtn = document.getElementById('saveDraftBtn');
+      const publishBtn = document.getElementById('publishBtn');
+      const saveStatus = document.getElementById('saveStatus');
+
+      // Set default happened_at to today or from ?date= param (for Calendar quick-create)
+      const paramDate = urlParams.get('date');
+      if (paramDate && /^\d{4}-\d{2}-\d{2}$/.test(paramDate)) {
+        happenedAtInput.value = paramDate;
+      } else {
+        happenedAtInput.value = new Date().toISOString().split('T')[0];
+      }
+
+      // Auto-generate slug from title
+      titleInput.addEventListener('input', () => {
+        if (!entryId && (!slugInput.dataset.manual || slugInput.value === '')) {
+          slugInput.value = slugify(titleInput.value);
+        }
+      });
+      slugInput.addEventListener('input', () => {
+        slugInput.dataset.manual = 'true';
+      });
+
+      function slugify(text) {
+        return text
+          .toString()
+          .toLowerCase()
+          .trim()
+          .replace(/\s+/g, '-')
+          .replace(/[^\w\-]+/g, '')
+          .replace(/\-\-+/g, '-');
+      }
+
+      // Load Categories into select
+      async function loadCategories() {
+        try {
+          const cats = await window.JournalAPI.getCategories();
+          categorySelect.innerHTML = '<option value="">Pilih Kategori...</option>' +
+            cats.map(c => `<option value="${c.id || c.slug}">${c.name}</option>`).join('');
+        } catch (err) {
+          console.warn('[Editor] Categories error:', err);
+        }
+      }
+      await loadCategories();
+
+      // Personal Journal Prompts Button Handlers
+      document.querySelectorAll('.prompt-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const promptText = btn.getAttribute('data-prompt');
+          const range = quill.getSelection(true) || { index: quill.getLength() };
+          quill.insertText(range.index, `\n\n📌 ${promptText}\n`, 'bold', true);
+          quill.setSelection(range.index + promptText.length + 5);
+        });
+      });
+
+      // Cover Image upload handler
+      coverDropzone.addEventListener('click', () => coverFileInput.click());
+      coverFileInput.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        await uploadCoverFile(file);
+      });
+
+      // Drag and drop cover
+      coverDropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        coverDropzone.classList.add('border-cyan-400');
+      });
+      coverDropzone.addEventListener('dragleave', () => {
+        coverDropzone.classList.remove('border-cyan-400');
+      });
+      coverDropzone.addEventListener('drop', async (e) => {
+        e.preventDefault();
+        coverDropzone.classList.remove('border-cyan-400');
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+          await uploadCoverFile(e.dataTransfer.files[0]);
+        }
+      });
+
+      async function uploadCoverFile(file) {
+        coverPlaceholder.innerHTML = '<span class="text-xs text-cyan-400">Mengoptimalkan &amp; mengunggah...</span>';
+        try {
+          const isPrivate = visibilitySelect.value === 'private';
+          const res = await window.JournalAPI.uploadPhoto({
+            file: file,
+            contentType: 'journal',
+            isPrivate: isPrivate,
+            isCover: true,
+            caption: file.name.replace(/\.[^/.]+$/, "")
+          });
+          setCoverImage(res.url);
+        } catch (err) {
+          alert('Gagal mengunggah foto cover: ' + err.message);
+          coverPlaceholder.innerHTML = '<span class="text-xs text-red-400">Gagal mengunggah. Coba lagi.</span>';
+        }
+      }
+
+      coverUrlInput.addEventListener('input', () => {
+        if (coverUrlInput.value.trim()) {
+          setCoverImage(coverUrlInput.value.trim());
+        }
+      });
+
+      function setCoverImage(url) {
+        coverPreview.src = url;
+        coverPreview.classList.remove('hidden');
+        coverPlaceholder.classList.add('hidden');
+        removeCoverBtn.classList.remove('hidden');
+        coverUrlInput.value = url;
+      }
+
+      removeCoverBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        coverPreview.src = '';
+        coverPreview.classList.add('hidden');
+        coverPlaceholder.classList.remove('hidden');
+        removeCoverBtn.classList.add('hidden');
+        coverUrlInput.value = '';
+        coverFileInput.value = '';
+      });
+
+      // Media Library Picker Integration
+      let pickerMode = 'cover';
+      const pickerModal = document.getElementById('mediaPickerModal');
+      const pickerGrid = document.getElementById('pickerGrid');
+      const chooseCoverFromLibraryBtn = document.getElementById('chooseCoverFromLibraryBtn');
+      const chooseGalleryFromLibraryBtn = document.getElementById('chooseGalleryFromLibraryBtn');
+      const closePickerBtn = document.getElementById('closePickerBtn');
+
+      async function openMediaPicker(mode) {
+        pickerMode = mode;
+        pickerGrid.innerHTML = '<div class="col-span-full py-8 text-center text-xs text-slate-400">Memuat foto dari library...</div>';
+        pickerModal.classList.remove('hidden');
+
+        try {
+          const { data } = await window.JournalAPI.getMediaList({ limit: 40 });
+          if (!data || data.length === 0) {
+            pickerGrid.innerHTML = `
+              <div class="col-span-full py-12 text-center text-xs text-slate-400">
+                <p>Belum ada foto yang diunggah ke Media Library.</p>
+                <a href="media.html" target="_blank" class="text-cyan-400 underline mt-2 inline-block">Buka Media Library untuk Unggah ↗</a>
+              </div>
+            `;
+            return;
+          }
+
+          pickerGrid.innerHTML = data.map((item) => `
+            <div onclick="selectImageFromPicker('${item.url}', '${item.file_path}', '${escapeHtml(item.caption || '')}')"
+              class="aspect-square rounded-xl overflow-hidden bg-black/40 border border-white/10 hover:border-cyan-400 cursor-pointer group relative">
+              <img src="${item.thumbnail_url || item.url}" alt="${escapeHtml(item.caption || '')}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+              <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                <span class="text-[10px] font-bold text-white bg-cyan-600 px-2 py-1 rounded-md">Pilih</span>
+              </div>
+            </div>
+          `).join('');
+        } catch (err) {
+          pickerGrid.innerHTML = `<div class="col-span-full text-xs text-red-400 py-6 text-center">Gagal memuat: ${err.message}</div>`;
+        }
+      }
+
+      window.selectImageFromPicker = (url, filePath, caption) => {
+        if (pickerMode === 'cover') {
+          setCoverImage(url);
+        } else {
+          galleryPhotos.push({
+            url: url,
+            file_path: filePath,
+            caption: caption || 'Foto Jurnal'
+          });
+          renderGalleryList();
+        }
+        pickerModal.classList.add('hidden');
+      };
+
+      chooseCoverFromLibraryBtn.addEventListener('click', () => openMediaPicker('cover'));
+      chooseGalleryFromLibraryBtn.addEventListener('click', () => openMediaPicker('gallery'));
+      closePickerBtn.addEventListener('click', () => pickerModal.classList.add('hidden'));
+
+      // Multi-Photo Gallery Upload
+      const galleryUploadBtn = document.getElementById('galleryUploadBtn');
+      const galleryFileInput = document.getElementById('galleryFileInput');
+      const galleryContainer = document.getElementById('galleryItemsContainer');
+      const galleryCountLabel = document.getElementById('galleryCount');
+
+      galleryUploadBtn.addEventListener('click', () => galleryFileInput.click());
+      galleryFileInput.addEventListener('change', async (e) => {
+        const files = Array.from(e.target.files);
+        if (files.length === 0) return;
+
+        galleryUploadBtn.textContent = `Mengompresi &amp; mengunggah ${files.length} foto...`;
+        for (const file of files) {
+          try {
+            const isPrivate = visibilitySelect.value === 'private';
+            const res = await window.JournalAPI.uploadPhoto({
+              file: file,
+              contentType: 'journal',
+              isPrivate: isPrivate,
+              caption: file.name.replace(/\.[^/.]+$/, "")
+            });
+            galleryPhotos.push({
+              url: res.url,
+              file_path: res.file_path,
+              caption: file.name.replace(/\.[^/.]+$/, "")
+            });
+          } catch (err) {
+            console.error('[Gallery] Upload error:', err);
+          }
+        }
+        galleryUploadBtn.textContent = '+ Unggah Foto Baru';
+        renderGalleryList();
+      });
+
+      function renderGalleryList() {
+        galleryCountLabel.textContent = `${galleryPhotos.length} Foto`;
+        galleryContainer.innerHTML = galleryPhotos.map((item, index) => `
+          <div class="flex items-center gap-2 p-2 rounded-xl bg-white/5 border border-white/10 text-xs">
+            <img src="${item.url}" class="w-10 h-10 object-cover rounded-lg flex-shrink-0" />
+            <input type="text" value="${item.caption || ''}" placeholder="Keterangan foto..."
+              onchange="updateGalleryCaption(${index}, this.value)"
+              class="flex-1 px-2 py-1 rounded bg-transparent border border-white/10 text-[11px]" />
+            <button type="button" onclick="removeGalleryPhoto(${index})" class="text-red-400 hover:text-red-300 p-1">
+              ✕
+            </button>
+          </div>
+        `).join('');
+      }
+
+      window.updateGalleryCaption = (idx, val) => {
+        if (galleryPhotos[idx]) galleryPhotos[idx].caption = val;
+      };
+
+      window.removeGalleryPhoto = (idx) => {
+        galleryPhotos.splice(idx, 1);
+        renderGalleryList();
+      };
+
+      // Load Existing Entry if Edit Mode
+      if (entryId) {
+        document.getElementById('editorHeading').textContent = 'Edit Catatan Jurnal';
+        document.getElementById('deleteZone').classList.remove('hidden');
+
+        try {
+          currentEntry = await window.JournalAPI.getAdminEntryById(entryId);
+          if (currentEntry) {
+            titleInput.value = currentEntry.title || '';
+            slugInput.value = currentEntry.slug || '';
+            excerptInput.value = currentEntry.excerpt || '';
+            visibilitySelect.value = currentEntry.visibility || 'public';
+            entryTypeSelect.value = currentEntry.entry_type || 'daily_journal';
+            moodInput.value = currentEntry.mood || '';
+            happenedAtInput.value = (currentEntry.happened_at || '').split('T')[0];
+            readingTimeInput.value = currentEntry.reading_time_minutes || 3;
+
+            if (currentEntry.category_id) {
+              categorySelect.value = currentEntry.category_id;
+            }
+            if (currentEntry.cover_image) {
+              setCoverImage(currentEntry.cover_image);
+            }
+            if (currentEntry.content_html) {
+              quill.root.innerHTML = currentEntry.content_html;
+            }
+            if (currentEntry.media && currentEntry.media.length > 0) {
+              galleryPhotos = currentEntry.media.map(m => ({
+                url: m.url,
+                file_path: m.file_path,
+                caption: m.caption
+              }));
+              renderGalleryList();
+            }
+          }
+        } catch (err) {
+          alert('Gagal memuat entri: ' + err.message);
+        }
+      }
+
+      // Delete Entry
+      document.getElementById('deleteEntryBtn').addEventListener('click', async () => {
+        if (!entryId) return;
+        if (confirm('Apakah Anda yakin ingin menghapus catatan jurnal ini?')) {
+          await window.JournalAPI.deleteEntry(entryId);
+          window.location.href = 'index.html';
+        }
+      });
+
+      // Save Entry Handler (Draft or Published)
+      async function handleSave(status) {
+        const title = titleInput.value.trim();
+        if (!title) {
+          alert('Judul tidak boleh kosong.');
+          titleInput.focus();
+          return;
+        }
+
+        let slug = slugInput.value.trim();
+        if (!slug) slug = slugify(title);
+
+        const contentHtml = quill.root.innerHTML;
+        const excerpt = excerptInput.value.trim() || quill.getText().slice(0, 160).trim();
+
+        saveStatus.textContent = 'Menyimpan...';
+
+        const payload = {
+          id: entryId || undefined,
+          title,
+          slug,
+          excerpt,
+          content_html: contentHtml,
+          content: { html: contentHtml },
+          entry_type: entryTypeSelect.value,
+          category_id: categorySelect.value || null,
+          visibility: visibilitySelect.value,
+          status: status,
+          cover_image: coverUrlInput.value.trim() || null,
+          mood: moodInput.value.trim() || null,
+          reading_time_minutes: parseInt(readingTimeInput.value) || 3,
+          happened_at: happenedAtInput.value || new Date().toISOString().split('T')[0]
+        };
+
+        try {
+          const saved = await window.JournalAPI.saveEntry(payload, galleryPhotos);
+          saveStatus.textContent = `Tersimpan sebagai ${status} pada ${new Date().toLocaleTimeString()}`;
+          if (!entryId && saved && saved.id) {
+            window.location.href = `editor.html?id=${saved.id}`;
+          }
+        } catch (err) {
+          console.error('[Editor] Save error:', err);
+          saveStatus.textContent = 'Gagal menyimpan: ' + err.message;
+          alert('Terjadi kesalahan saat menyimpan: ' + err.message);
+        }
+      }
+
+      saveDraftBtn.addEventListener('click', () => handleSave('draft'));
+      publishBtn.addEventListener('click', () => handleSave('published'));
+
+      // Live Preview Modal Logic
+      const previewModal = document.getElementById('previewModal');
+      const previewContainer = document.getElementById('previewContainer');
+      const prevDesktopBtn = document.getElementById('previewDesktopBtn');
+      const previewMobileBtn = document.getElementById('previewMobileBtn');
+
+      document.getElementById('previewBtn').addEventListener('click', () => {
+        document.getElementById('prevTitle').textContent = titleInput.value.trim() || 'Judul Artikel';
+        document.getElementById('prevCategory').textContent = categorySelect.options[categorySelect.selectedIndex]?.text || 'Journal';
+        document.getElementById('prevDate').textContent = happenedAtInput.value || 'Hari ini';
+        
+        const cover = document.getElementById('prevCover');
+        if (coverUrlInput.value.trim()) {
+          cover.src = coverUrlInput.value.trim();
+          cover.classList.remove('hidden');
+        } else {
+          cover.classList.add('hidden');
+        }
+
+        document.getElementById('prevBody').innerHTML = quill.root.innerHTML;
+        previewModal.classList.remove('hidden');
+      });
+
+      document.getElementById('closePreviewBtn').addEventListener('click', () => previewModal.classList.add('hidden'));
+
+      prevDesktopBtn.addEventListener('click', () => {
+        previewContainer.style.maxWidth = '56rem'; // 4xl
+        prevDesktopBtn.className = 'px-3 py-1 rounded-md bg-cyan-600 text-white font-semibold';
+        previewMobileBtn.className = 'px-3 py-1 rounded-md text-slate-400 hover:text-white';
+      });
+
+      previewMobileBtn.addEventListener('click', () => {
+        previewContainer.style.maxWidth = '390px';
+        previewMobileBtn.className = 'px-3 py-1 rounded-md bg-cyan-600 text-white font-semibold';
+        prevDesktopBtn.className = 'px-3 py-1 rounded-md text-slate-400 hover:text-white';
+      });
+
+    })();
+  </script>
+</body>
+
+</html>
+

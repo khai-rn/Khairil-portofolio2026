@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Journal of Becoming — M. Khairil Rahman</title>
+  <meta name="description" content="Documenting life, one day at a time. Catatan harian, pemikiran pribadi, refleksi, dan dokumentasi visual oleh M. Khairil Rahman.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            serif: ['Newsreader', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #050508; }
+    .liquid-glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+    }
+    .liquid-glass-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+    .page-transition {
+      opacity: 0;
+      animation: pageEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes pageEnter {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .cat-pill {
+      transition: all 0.2s ease;
+    }
+    .cat-pill.active {
+      background: #ffffff;
+      color: #050508;
+      border-color: #ffffff;
+    }
+  </style>
+</head>
+
+<body class="text-slate-100 font-sans min-h-screen flex flex-col relative overflow-x-hidden">
+  <!-- Mesh background orbs -->
+  <div class="fixed inset-0 pointer-events-none z-0">
+    <div class="absolute top-[-15%] left-[10%] w-[55vw] h-[55vw] rounded-full bg-blue-600/15 blur-[140px]"></div>
+    <div class="absolute bottom-[-10%] right-[10%] w-[50vw] h-[50vw] rounded-full bg-cyan-600/10 blur-[130px]"></div>
+  </div>
+
+  <div class="relative z-10 page-transition flex-grow max-w-6xl w-full mx-auto px-6 py-10 flex flex-col">
+    <!-- Top Navigation Bar -->
+    <header class="flex items-center justify-between pb-8 mb-8 border-b border-white/10">
+      <div class="flex items-center gap-3">
+        <a href="index.html#home" class="w-10 h-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-2 hover:bg-white/10 transition-colors">
+          <img src="assets/icon apps/kaivisual New Logo-07.png" alt="Logo" class="w-full h-full object-contain" />
+        </a>
+        <div>
+          <h1 class="text-base font-bold text-white tracking-tight">A Journal of Becoming</h1>
+          <p class="text-xs text-slate-400">Documenting life, one day at a time.</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="index.html#blog"
+          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-slate-300 transition-colors">
+          ← Portofolio Utama
+        </a>
+      </div>
+    </header>
+
+    <!-- Hero Editorial Headline -->
+    <div class="text-center max-w-2xl mx-auto my-8">
+      <span class="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-2 block">
+        Personal Journal &amp; Notes
+      </span>
+      <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+        A Journal of Becoming
+      </h2>
+      <p class="text-sm md:text-base text-slate-400 mt-4 leading-relaxed font-light">
+        Ruang dokumentasi harian, pemikiran pribadi, apa yang saya pelajari, refleksi hidup, dan arsip fotografi sehari-hari. Terbuka untuk dibaca siapa saja.
+      </p>
+    </div>
+
+    <!-- View Mode Switcher -->
+    <div class="flex justify-center my-6">
+      <div class="inline-flex items-center bg-white/5 p-1 rounded-2xl border border-white/10 text-xs">
+        <button id="viewGridBtn" type="button" class="px-4 py-2 rounded-xl bg-white text-slate-900 font-bold flex items-center gap-2 transition-all shadow-md">
+          <span>⊞</span> Tampilan Grid
+        </button>
+        <button id="viewCalBtn" type="button" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white font-medium flex items-center gap-2 transition-all">
+          <span>📅</span> Kalender Jurnal
+        </button>
+      </div>
+    </div>
+
+    <!-- Controls: Search & Category Filter Pills (Active in Grid View) -->
+    <div id="gridControlsSection" class="my-6 space-y-5">
+      <!-- Search Bar -->
+      <div class="max-w-md mx-auto relative">
+        <svg class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Cari tulisan, topik, atau kata kunci..."
+          class="w-full pl-11 pr-4 py-3 rounded-2xl bg-white/[0.04] border border-white/10 text-sm text-white placeholder-slate-500 outline-none focus:border-cyan-400 transition-all" />
+      </div>
+
+      <!-- Categories Filter -->
+      <div id="categoryFilter" class="flex gap-2 overflow-x-auto pb-2 justify-start md:justify-center scrollbar-none">
+        <button data-cat="all" class="cat-pill active px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-slate-300 hover:text-white whitespace-nowrap">
+          Semua
+        </button>
+        <button data-cat="daily-life" class="cat-pill px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-slate-300 hover:text-white whitespace-nowrap">
+          Daily Life
+        </button>
+        <button data-cat="personal-thoughts" class="cat-pill px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-slate-300 hover:text-white whitespace-nowrap">
+          Personal Thoughts
+        </button>
+        <button data-cat="experiences" class="cat-pill px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-slate-300 hover:text-white whitespace-nowrap">
+          Experiences
+        </button>
+        <button data-cat="reflections" class="cat-pill px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-slate-300 hover:text-white whitespace-nowrap">
+          Reflections
+        </button>
+        <button data-cat="memories" class="cat-pill px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-slate-300 hover:text-white whitespace-nowrap">
+          Memories
+        </button>
+        <button data-cat="learning" class="cat-pill px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-slate-300 hover:text-white whitespace-nowrap">
+          Learning
+        </button>
+        <button data-cat="creative-ideas" class="cat-pill px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-slate-300 hover:text-white whitespace-nowrap">
+          Creative Ideas
+        </button>
+      </div>
+    </div>
+
+    <!-- Calendar View Container (Hidden by default) -->
+    <div id="journalCalendarContainer" class="hidden my-4"></div>
+
+    <!-- Articles Grid -->
+    <div id="journalGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-6">
+      <!-- Loading Skeleton -->
+      <div class="col-span-full py-20 text-center text-slate-400">
+        <div class="inline-block w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin mb-3"></div>
+        <p class="text-xs">Memuat catatan jurnal publik...</p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-20 pt-8 border-t border-white/10 text-center text-xs text-slate-500">
+      <p>© 2026 M. Khairil Rahman &bull; A Journal of Becoming &bull; Ditulis dengan hati, dibagikan untuk semua.</p>
+    </footer>
+  </div>
+
+  <!-- Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="assets/js/supabase-config.js"></script>
+  <script src="assets/js/supabase-client.js"></script>
+  <script src="assets/js/journal-calendar.js"></script>
+
+  <script>
+    (async function() {
+      const grid = document.getElementById('journalGrid');
+      const searchInput = document.getElementById('searchInput');
+      const catPills = document.querySelectorAll('.cat-pill');
+      const gridControlsSection = document.getElementById('gridControlsSection');
+      const calendarContainer = document.getElementById('journalCalendarContainer');
+      const viewGridBtn = document.getElementById('viewGridBtn');
+      const viewCalBtn = document.getElementById('viewCalBtn');
+
+      let currentCat = 'all';
+      let searchQuery = '';
+      let searchTimer = null;
+      let calendarInstance = null;
+
+      // View Mode Switcher
+      viewGridBtn.addEventListener('click', () => {
+        viewGridBtn.className = 'px-4 py-2 rounded-xl bg-white text-slate-900 font-bold flex items-center gap-2 transition-all shadow-md';
+        viewCalBtn.className = 'px-4 py-2 rounded-xl text-slate-400 hover:text-white font-medium flex items-center gap-2 transition-all';
+        gridControlsSection.classList.remove('hidden');
+        grid.classList.remove('hidden');
+        calendarContainer.classList.add('hidden');
+      });
+
+      viewCalBtn.addEventListener('click', () => {
+        viewCalBtn.className = 'px-4 py-2 rounded-xl bg-white text-slate-900 font-bold flex items-center gap-2 transition-all shadow-md';
+        viewGridBtn.className = 'px-4 py-2 rounded-xl text-slate-400 hover:text-white font-medium flex items-center gap-2 transition-all';
+        gridControlsSection.classList.add('hidden');
+        grid.classList.add('hidden');
+        calendarContainer.classList.remove('hidden');
+
+        if (!calendarInstance) {
+          calendarInstance = new JournalCalendar('journalCalendarContainer', { isAuthor: false });
+        }
+      });
+      let searchQuery = '';
+      let searchTimer = null;
+
+      const STATIC_FALLBACKS = [
+        {
+          title: "Cara Membuat Logo yang Profesional dan Berdampak",
+          excerpt: "Memahami fundamental desain logo, sistem grid, dan mengapa kesederhanaan adalah kunci identitas abadi.",
+          cover_image: "assets/Project Image/logofolio.png",
+          category: { name: "Desain Grafis", slug: "creative-ideas" },
+          url: "blog-logo.html",
+          date: "Juli 2026"
+        },
+        {
+          title: "Membangun Identitas Visual (Branding) yang Kuat",
+          excerpt: "Pentingnya konsistensi, psikologi warna, dan panduan merek untuk menciptakan persepsi positif audiens.",
+          cover_image: "https://images.unsplash.com/photo-1542744094-3a31f272c490?q=80&w=1000",
+          category: { name: "Branding", slug: "creative-ideas" },
+          url: "blog-branding.html",
+          date: "Juli 2026"
+        },
+        {
+          title: "AI untuk Desainer: Ancaman atau Alat Bantu?",
+          excerpt: "Mengeksplorasi cara memanfaatkan kecerdasan buatan sebagai asisten kreatif tanpa menghilangkan sentuhan manusiawi.",
+          cover_image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1000",
+          category: { name: "AI & Teknologi", slug: "learning" },
+          url: "blog-ai.html",
+          date: "Juli 2026"
+        },
+        {
+          title: "10 AI Tools yang Wajib Saya Gunakan Sebagai Graphic Designer di 2026",
+          excerpt: "Bagaimana AI membantu menghemat waktu untuk pekerjaan berulang, mulai dari ChatGPT hingga Midjourney.",
+          cover_image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000",
+          category: { name: "AI Tools", slug: "learning" },
+          url: "blog-10-ai-tools.html",
+          date: "Juli 2026"
+        },
+        {
+          title: "AI untuk Brainstorming Ide Desain: Menghasilkan Ide Cepat Tanpa Kehilangan Kreativitas",
+          excerpt: "Bagaimana AI dapat menjadi partner diskusi dan memancing sudut pandang baru dalam memecahkan masalah visual.",
+          cover_image: "assets/Project Image/ai_brainstorming_hero.png",
+          category: { name: "Brainstorming", slug: "creative-ideas" },
+          url: "blog-ai-brainstorming.html",
+          date: "Juli 2026"
+        }
+      ];
+
+      async function loadArticles() {
+        let entries = [];
+
+        if (window.JournalAPI && window.SUPABASE_CONFIG.isConfigured()) {
+          try {
+            const { data } = await window.JournalAPI.getPublicEntries({
+              categorySlug: currentCat,
+              searchQuery: searchQuery,
+              limit: 50
+            });
+            if (data && data.length > 0) {
+              entries = data.map(d => ({
+                title: d.title,
+                excerpt: d.excerpt,
+                cover_image: d.cover_image || 'https://images.unsplash.com/photo-1542744094-3a31f272c490?q=80&w=1000',
+                category: d.category || { name: 'Journal', slug: 'reflections' },
+                url: `blog-post.html?slug=${encodeURIComponent(d.slug)}`,
+                date: d.published_at ? new Date(d.published_at).toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Baru'
+              }));
+            }
+          } catch (err) {
+            console.warn('[Journal] Fetch error:', err);
+          }
+        }
+
+        if (entries.length === 0) {
+          entries = STATIC_FALLBACKS.filter(item => {
+            const matchCat = currentCat === 'all' || item.category.slug === currentCat;
+            const matchSearch = !searchQuery || item.title.toLowerCase().includes(searchQuery) || item.excerpt.toLowerCase().includes(searchQuery);
+            return matchCat && matchSearch;
+          });
+        }
+
+        if (entries.length === 0) {
+          grid.innerHTML = `
+            <div class="col-span-full py-16 text-center text-slate-400">
+              <p class="text-base font-semibold text-white mb-1">Belum ada tulisan untuk kategori ini</p>
+              <p class="text-xs text-slate-500">Coba pilih filter lain atau hapus kata pencarian.</p>
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = entries.map(item => `
+          <a href="${item.url}" class="liquid-glass-card rounded-3xl overflow-hidden flex flex-col group">
+            <div class="relative w-full h-48 overflow-hidden bg-black/40">
+              <img src="${item.cover_image}" alt="${escapeHtml(item.title)}" loading="lazy"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="p-6 flex flex-col flex-grow">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-400 mb-2 block">
+                ${escapeHtml(item.category.name)}
+              </span>
+              <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors line-clamp-2 mb-2 leading-snug">
+                ${escapeHtml(item.title)}
+              </h3>
+              <p class="text-xs text-slate-400 line-clamp-3 mb-6 flex-grow leading-relaxed font-light">
+                ${escapeHtml(item.excerpt)}
+              </p>
+              <div class="flex items-center justify-between pt-4 border-t border-white/5 text-[11px] text-slate-400 mt-auto">
+                <span>${item.date}</span>
+                <span class="text-white font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  Baca Artikel →
+                </span>
+              </div>
+            </div>
+          </a>
+        `).join('');
+      }
+
+      function escapeHtml(text) {
+        if (!text) return '';
+        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+
+      // Filter events
+      catPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          catPills.forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+          currentCat = pill.getAttribute('data-cat');
+          loadArticles();
+        });
+      });
+
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => {
+          searchQuery = e.target.value.trim().toLowerCase();
+          loadArticles();
+        }, 300);
+      });
+
+      loadArticles();
+    })();
+  </script>
+</body>
+
+</html>
+
